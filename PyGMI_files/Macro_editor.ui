@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Macro_editor</class>
+ <widget class="QWidget" name="Macro_editor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1044</width>
+    <height>806</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="3">
+    <widget class="MyMacroEdit" name="macro_textbox">
+     <property name="lineWrapMode">
+      <enum>QPlainTextEdit::WidgetWidth</enum>
+     </property>
+     <property name="backgroundVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QTreeView" name="macrocommandtree">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="textElideMode">
+      <enum>Qt::ElideRight</enum>
+     </property>
+     <property name="rootIsDecorated">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>false</bool>
+     </property>
+     <property name="itemsExpandable">
+      <bool>true</bool>
+     </property>
+     <property name="animated">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerHighlightSections">
+      <bool>true</bool>
+     </attribute>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Current line in the macro</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QLineEdit" name="mac_curr_line">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="text">
+      <string>Open Macro</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="text">
+      <string>Save Macro</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QPushButton" name="pushButton_10">
+     <property name="text">
+      <string>Clear Macro</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton_11">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Run Macro</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3" rowspan="3">
+    <widget class="QPushButton" name="pushButton_12">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>26</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 0, 0);
+color: rgb(255, 255, 255);
+font: 75 26pt &quot;Arial&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Stop Macro</string>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyMacroEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>Macro_editor_textbox</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>Macro_editor</receiver>
+   <slot>save_macro()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>745</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>507</x>
+     <y>739</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>Macro_editor</receiver>
+   <slot>open_macro()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>742</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>391</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_11</sender>
+   <signal>clicked()</signal>
+   <receiver>Macro_editor</receiver>
+   <slot>run_macro()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>323</x>
+     <y>778</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>783</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_10</sender>
+   <signal>clicked()</signal>
+   <receiver>macro_textbox</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>772</x>
+     <y>763</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>618</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>Macro_editor</receiver>
+   <slot>stop_macro()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>882</x>
+     <y>747</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>807</x>
+     <y>697</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>save_macro()</slot>
+  <slot>open_macro()</slot>
+  <slot>run_macro()</slot>
+  <slot>stop_macro()</slot>
+ </slots>
+</ui>

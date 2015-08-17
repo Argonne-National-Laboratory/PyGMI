@@ -1,0 +1,1179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Instruments_connection</class>
+ <widget class="QWidget" name="Instruments_connection">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1086</width>
+    <height>762</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_5">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>List of Instruments</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" rowspan="13">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,2,2">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Instr1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2" colspan="2">
+      <widget class="QLabel" name="label_42">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="instr_on_1">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_1">
+       <property name="text">
+        <string>GPIB1::9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QComboBox" name="instr_instrtype_1"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Instr2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="2">
+      <widget class="QLabel" name="label_43">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="instr_on_2">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_2">
+       <property name="text">
+        <string>GPIB1::7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3">
+      <widget class="QComboBox" name="instr_instrtype_2"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>Instr3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2" colspan="2">
+      <widget class="QLabel" name="label_48">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QCheckBox" name="instr_on_3">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_3">
+       <property name="text">
+        <string>GPIB1::1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="3">
+      <widget class="QComboBox" name="instr_instrtype_3"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLabel" name="label_21">
+       <property name="text">
+        <string>Instr4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2" colspan="2">
+      <widget class="QLabel" name="label_51">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QCheckBox" name="instr_on_4">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_4">
+       <property name="text">
+        <string>GPIB1::11</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="3">
+      <widget class="QComboBox" name="instr_instrtype_4"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>Instr5</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="2" colspan="2">
+      <widget class="QLabel" name="label_60">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QCheckBox" name="instr_on_5">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_5">
+       <property name="text">
+        <string>GPIB1::14</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="3">
+      <widget class="QComboBox" name="instr_instrtype_5"/>
+     </item>
+     <item row="11" column="1">
+      <widget class="QLabel" name="label_35">
+       <property name="text">
+        <string>Instr6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="2" colspan="2">
+      <widget class="QLabel" name="label_61">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="QCheckBox" name="instr_on_6">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_6">
+       <property name="text">
+        <string>GPIB1::18</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="3">
+      <widget class="QComboBox" name="instr_instrtype_6"/>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLabel" name="label_36">
+       <property name="text">
+        <string>Instr7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="2" colspan="2">
+      <widget class="QLabel" name="label_62">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="0">
+      <widget class="QCheckBox" name="instr_on_7">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_7">
+       <property name="text">
+        <string>GPIB1::10</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="3">
+      <widget class="QComboBox" name="instr_instrtype_7"/>
+     </item>
+     <item row="15" column="1">
+      <widget class="QLabel" name="label_37">
+       <property name="text">
+        <string>Instr8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="2" colspan="2">
+      <widget class="QLabel" name="label_63">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="0">
+      <widget class="QCheckBox" name="instr_on_8">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_8">
+       <property name="text">
+        <string>GPIB1::30</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="3">
+      <widget class="QComboBox" name="instr_instrtype_8"/>
+     </item>
+     <item row="17" column="1">
+      <widget class="QLabel" name="label_38">
+       <property name="text">
+        <string>Instr9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="2" colspan="2">
+      <widget class="QLabel" name="label_64">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="0">
+      <widget class="QCheckBox" name="instr_on_9">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_9">
+       <property name="text">
+        <string>GPIB1::30</string>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="3">
+      <widget class="QComboBox" name="instr_instrtype_9"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Visa Addresses</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="1" rowspan="13">
+    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,2,2">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetFixedSize</enum>
+     </property>
+     <property name="horizontalSpacing">
+      <number>6</number>
+     </property>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="temp_controller_on">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="QLineEdit" name="temp_controller_visa_address">
+       <property name="text">
+        <string>ID12_LS340_Temp_Controller</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QComboBox" name="temp_controller_instrtype"/>
+     </item>
+     <item row="2" column="1" colspan="3">
+      <widget class="QLabel" name="label_34">
+       <property name="text">
+        <string>Magnet power supply X - axis</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="magnet_X_on">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="magnet_X_visa_address">
+       <property name="text">
+        <string>AMI420_X</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QComboBox" name="magnet_X_instrtype"/>
+     </item>
+     <item row="4" column="1" colspan="3">
+      <widget class="QLabel" name="label_33">
+       <property name="text">
+        <string>Magnet power supply Y - axis</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QCheckBox" name="magnet_Y_on">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="magnet_Y_visa_address">
+       <property name="text">
+        <string>AMI420_Y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QComboBox" name="magnet_Y_instrtype"/>
+     </item>
+     <item row="6" column="1" colspan="3">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Magnet power supply Z - axis</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QCheckBox" name="magnet_Z_on">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1" colspan="2">
+      <widget class="QLineEdit" name="magnet_Z_visa_address">
+       <property name="text">
+        <string>ID22_AMI420_magnet</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="3">
+      <widget class="QComboBox" name="magnet_Z_instrtype"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_73">
+       <property name="text">
+        <string>Instr14</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2" colspan="2">
+      <widget class="QLabel" name="label_74">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>LHe Level</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QCheckBox" name="instr_on_14">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_14">
+       <property name="text">
+        <string>GPIB1::1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="3">
+      <widget class="QComboBox" name="instr_instrtype_14"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_39">
+       <property name="text">
+        <string>Instr10</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2" colspan="2">
+      <widget class="QLabel" name="label_65">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string> Current source</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QCheckBox" name="instr_on_10">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_10">
+       <property name="text">
+        <string>GPIB1::19</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="3">
+      <widget class="QComboBox" name="instr_instrtype_10"/>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLabel" name="label_40">
+       <property name="text">
+        <string>Instr11</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="2" colspan="2">
+      <widget class="QLabel" name="label_66">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>rotator</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QCheckBox" name="instr_on_11">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_11">
+       <property name="text">
+        <string>COM8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="3">
+      <widget class="QComboBox" name="instr_instrtype_11"/>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLabel" name="label_41">
+       <property name="text">
+        <string>Instr12</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="2" colspan="2">
+      <widget class="QLabel" name="label_67">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 170, 255);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>BNC switch</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
+      <widget class="QCheckBox" name="instr_on_12">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="1" colspan="2">
+      <widget class="QLineEdit" name="instr_visa_address_12">
+       <property name="text">
+        <string>COM9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="3">
+      <widget class="QComboBox" name="instr_instrtype_12"/>
+     </item>
+     <item row="0" column="1" colspan="3">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Temperature Controller</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" colspan="3">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" rowspan="6">
+      <widget class="QTableWidget" name="instr_table">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>200</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>350</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Instrument Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Visa Address</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_instr">
+       <property name="text">
+        <string>Scan for
+Instruments</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_instr_2">
+       <property name="text">
+        <string>Initialize
+Instruments</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="pushButton_instr_5">
+       <property name="text">
+        <string>Save
+Instruments configuration</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="pushButton_instr_6">
+       <property name="text">
+        <string>Load
+Instruments configuration</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>370</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Parameters</string>
+     </property>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>421</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Active channels - list 1</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="channels_list_1">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>351</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A,B</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_71">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>442</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Active channels - list 2</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="channels_list_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>351</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A,B,C</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="mapping">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>351</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A:1,B:2</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_77">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>442</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mapping</string>
+      </property>
+     </widget>
+     <zorder>mapping</zorder>
+     <zorder>channels_list_1</zorder>
+     <zorder>label_77</zorder>
+     <zorder>label_71</zorder>
+     <zorder>label_32</zorder>
+     <zorder>channels_list_2</zorder>
+     <zorder>label_32</zorder>
+     <zorder>channels_list_1</zorder>
+     <zorder>label_71</zorder>
+     <zorder>channels_list_2</zorder>
+     <zorder>mapping</zorder>
+     <zorder>label_77</zorder>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>250</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Instruments testing</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <widget class="QTextEdit" name="testanswer">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>261</width>
+        <height>100</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_76">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>383</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Answer</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_72">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>383</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Send command</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_75">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>68</y>
+        <width>383</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>To</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="testinst">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>261</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GPIB0::0</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="testcommand">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>261</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A,B,C</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Write</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>50</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ask</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>140</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Read</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_instr_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>init_instr()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1109</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1143</x>
+     <y>235</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_instr</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>refresh_instr_list()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1113</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1034</x>
+     <y>17</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_instr_5</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>saveInstrconf()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1133</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>867</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_instr_6</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>loadInstrconf()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1133</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>689</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>write2inst()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1072</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1047</x>
+     <y>401</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>ask2inst()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1087</x>
+     <y>360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1096</x>
+     <y>395</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>Instruments_connection</receiver>
+   <slot>readinst()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1092</x>
+     <y>447</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1060</x>
+     <y>501</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>init_instr()</slot>
+  <slot>refresh_instr_list()</slot>
+  <slot>saveInstrconf()</slot>
+  <slot>loadInstrconf()</slot>
+  <slot>write2inst()</slot>
+  <slot>ask2inst()</slot>
+  <slot>readinst()</slot>
+ </slots>
+</ui>

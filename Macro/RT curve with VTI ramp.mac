@@ -1,0 +1,48 @@
+Set VTI heater range to 4
+Set heater range to 4
+Start V_3pts_3axis()
+Wait 10 secs
+Stop Measurements
+Set Loop 1 to 5 K
+Set VTI Loop 1 to 5 K
+Wait for channel A to reach 5 +/- 0.1 K
+
+Set current 1 to 200e-6 A
+Set Save file to measurements data/GGLBCO-1-2-E-warmup-200uA.txt
+Start V_3pts_3axis()
+Set Loop 1 to 80 K @ 0.5 K/min
+Set VTI Loop 1 to 80 K @ 0.5 K/min
+Wait for channel A to reach 80 +/- 0.1 K
+Stop Measurements
+
+Set current 1 to 1000e-6 A
+Set Save file to measurements data/GGLBCO-1-2-E-cooldown-1000uA.txt
+Start V_3pts_3axis()
+Set Loop 1 to 5 K @ 0.5 K/min
+Set VTI Loop 1 to 5 K @ 0.5 K/min
+Wait for channel A to reach 5 +/- 0.1 K
+Stop Measurements
+
+Set current 1 to 1000e-6 A
+Set Save file to measurements data/GGLBCO-1-2-E-warmup-1000uA.txt
+Start V_3pts_3axis()
+Set Loop 1 to 80 K @ 0.5 K/min
+Set VTI Loop 1 to 80 K @ 0.5 K/min
+Wait for channel A to reach 80 +/- 0.1 K
+Stop Measurements
+
+Set current 1 to 100e-6 A
+Set Save file to measurements data/GGLBCO-1-2-E-cooldown-100uA.txt
+Start V_3pts_3axis()
+Set Loop 1 to 5 K @ 0.5 K/min
+Set VTI Loop 1 to 5 K @ 0.5 K/min
+Wait for channel A to reach 5 +/- 0.1 K
+Stop Measurements
+
+Set current 1 to 500e-6 A
+Set Save file to measurements data/GGLBCO-1-2-E-warmup-500uA.txt
+Start V_3pts_3axis()
+Set Loop 1 to 80 K @ 0.5 K/min
+Set VTI Loop 1 to 80 K @ 0.5 K/min
+Wait for channel A to reach 80 +/- 0.1 K
+Stop Measurements

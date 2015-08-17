@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Panel</class>
+ <widget class="QWidget" name="Panel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>479</width>
+    <height>70</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Keithley 6221</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="I_disp">
+     <property name="font">
+      <font>
+       <family>Courier</family>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 1, 0);
+color: rgb(250, 28, 51);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="text">
+      <string>--- μA</string>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="suffix">
+      <string> μA</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="minimum">
+      <double>-1000000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000000.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>50.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QRadioButton" name="outputON">
+     <property name="text">
+      <string>Output ON</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLabel" name="label_47">
+     <property name="text">
+      <string>Refresh rate</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QCheckBox" name="monitor">
+     <property name="text">
+      <string>Monitor</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="V_disp">
+     <property name="font">
+      <font>
+       <family>Courier</family>
+       <weight>75</weight>
+       <bold>true</bold>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 1, 0);
+color: rgb(250, 28, 51);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::WinPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="text">
+      <string>--- V</string>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="suffix">
+      <string> V</string>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-50.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>50.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>1.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="resetbutton">
+     <property name="text">
+      <string>Reset</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3" colspan="2">
+    <widget class="QDoubleSpinBox" name="refresh_rate">
+     <property name="minimumSize">
+      <size>
+       <width>91</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="suffix">
+      <string> secs</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>9999999.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.500000000000000</double>
+     </property>
+     <property name="value">
+      <double>2.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>monitor</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Panel</receiver>
+   <slot>monitor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>297</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>refresh_rate</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>Panel</receiver>
+   <slot>update_timer_timeout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>Panel</receiver>
+   <slot>change_I()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>154</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>238</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>Panel</receiver>
+   <slot>change_V_comp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>82</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>outputON</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Panel</receiver>
+   <slot>switch_output()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>23</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>resetbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>Panel</receiver>
+   <slot>reset_inst()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>45</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>monitor()</slot>
+  <slot>update_timer_timeout()</slot>
+  <slot>change_I()</slot>
+  <slot>change_V_comp()</slot>
+  <slot>reset_inst()</slot>
+  <slot>switch_output()</slot>
+ </slots>
+</ui>

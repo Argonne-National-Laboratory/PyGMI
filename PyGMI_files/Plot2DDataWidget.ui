@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Plot2DData</class>
+ <widget class="QWidget" name="Plot2DData">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>707</width>
+    <height>753</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="4">
+    <widget class="PlotWidget" name="plot_area"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Y-axis</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="y_axis_box"/>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_9">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>X-axis</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QComboBox" name="x_axis_box"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Line Color</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="text">
+      <string>Point Color</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Refresh rate</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QDoubleSpinBox" name="refresh_rate">
+     <property name="minimumSize">
+      <size>
+       <width>91</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
+     <property name="suffix">
+      <string> s</string>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="minimum">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>200000.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.500000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.500000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Point Size    </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QSpinBox" name="Symbol_size">
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="suffix">
+      <string/>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QCheckBox" name="auto_upd">
+     <property name="text">
+      <string>Auto-update</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QCheckBox" name="autoconnect">
+     <property name="text">
+      <string>Auto-connect</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+   <slots>
+    <slot>plot()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>y_axis_box</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>updateY()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>309</x>
+     <y>655</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>x_axis_box</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>updateX()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>671</x>
+     <y>655</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>refresh_rate</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>update_timer_timeout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>671</x>
+     <y>688</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>453</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Symbol_size</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>change_symbol_size()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>309</x>
+     <y>720</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>147</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>change_point_color()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>308</x>
+     <y>685</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>155</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>change_line_color()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>685</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>55</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>auto_upd</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>Plot2DData</receiver>
+   <slot>autoupdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>559</x>
+     <y>727</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>568</x>
+     <y>745</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>plot_index_update()</slot>
+  <slot>updateX()</slot>
+  <slot>updateY()</slot>
+  <slot>change_line_color()</slot>
+  <slot>update_timer_timeout()</slot>
+  <slot>change_symbol_size()</slot>
+  <slot>change_point_color()</slot>
+  <slot>check_update()</slot>
+  <slot>autoupdate()</slot>
+ </slots>
+</ui>

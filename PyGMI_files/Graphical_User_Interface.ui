@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PyGMI</class>
+ <widget class="QMainWindow" name="PyGMI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1638</width>
+    <height>786</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PyGMI v3.0 - Python Generic Measurements Interface</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Instr I/O</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="Instruments_connection" name="instr_IO" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Measurements</string>
+       </attribute>
+       <widget class="QLabel" name="label_47">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>640</y>
+          <width>141</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>E-mail alert address</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="email_address">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>660</y>
+          <width>291</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>460</y>
+          <width>501</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Single shot Measurements</string>
+        </property>
+        <widget class="QComboBox" name="measMode">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>231</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="duplicatesEnabled">
+          <bool>false</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>B Rem mode</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>M vs H mode</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>+I/-I mode</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>M vs T mode</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>IV curve (PC trigger)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>IV curve (T-link cable, not finished yet)</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QLabel" name="label_50">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>221</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Measurements Program</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>40</y>
+           <width>121</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Start
+Measurements</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>40</y>
+           <width>71</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>MS Shell Dlg 2</family>
+           <pointsize>8</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Update
+Program List</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>560</y>
+          <width>481</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Plots</string>
+        </property>
+        <widget class="QPushButton" name="pushButton_13">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>131</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>New Plot Window</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="NewPlotWindowTitle">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>21</y>
+           <width>291</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>New Plot Window Title</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushButton_14">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>650</y>
+          <width>131</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Config Menu</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>10</y>
+          <width>1081</width>
+          <height>681</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Macro Editor</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="Macro_editor" name="macro_UI" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>501</width>
+          <height>431</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Parameters</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0" colspan="3">
+          <widget class="QDoubleSpinBox" name="I_source_setpoint">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> µA</string>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <double>10000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4" colspan="2">
+          <widget class="QLabel" name="label_68">
+           <property name="text">
+            <string>Current 2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="18" column="10">
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="3">
+          <widget class="QDoubleSpinBox" name="mesure_speed">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> * 16.7 ms</string>
+           </property>
+           <property name="decimals">
+            <number>2</number>
+           </property>
+           <property name="minimum">
+            <double>0.010000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>60.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>5.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QDoubleSpinBox" name="I_source_setpoint_2">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> µA</string>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <double>10000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="0" colspan="6">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Current persistent field</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="0" colspan="4">
+          <widget class="QLabel" name="label_52">
+           <property name="text">
+            <string>X</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="7">
+          <widget class="QSpinBox" name="repeat_points">
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> times</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="value">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+         <item row="18" column="0" colspan="10">
+          <widget class="QLineEdit" name="savefile_txt_input">
+           <property name="text">
+            <string>measurements data/default.txt</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="4">
+          <widget class="QLabel" name="label_77">
+           <property name="text">
+            <string>Y</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="7">
+          <widget class="QLabel" name="label_78">
+           <property name="text">
+            <string>Z</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0" colspan="3">
+          <widget class="QDoubleSpinBox" name="V_setpoint_1">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> V</string>
+           </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
+           <property name="minimum">
+            <double>-1000000000.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>10000004.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_49">
+           <property name="text">
+            <string>Current 1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="7">
+          <widget class="QDoubleSpinBox" name="V_setpoint_3">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> V</string>
+           </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
+           <property name="minimum">
+            <double>-1000000000.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>10000004.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="4">
+          <widget class="QDoubleSpinBox" name="mesure_delay">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> ms</string>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <double>200000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>1000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="17" column="0" colspan="2">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Save file :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="3">
+          <widget class="QLabel" name="label_56">
+           <property name="text">
+            <string>Voltage 1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="7">
+          <widget class="QLabel" name="label_69">
+           <property name="text">
+            <string>Current 3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="7">
+          <widget class="QLabel" name="label_81">
+           <property name="text">
+            <string>Voltage 3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="4">
+          <widget class="QLabel" name="label_82">
+           <property name="text">
+            <string>Voltage 2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="label_70">
+           <property name="text">
+            <string>Measurements speed</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="4">
+          <widget class="QDoubleSpinBox" name="V_setpoint_2">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> V</string>
+           </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
+           <property name="minimum">
+            <double>-1000000000.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>10000004.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="7">
+          <widget class="QDoubleSpinBox" name="I_source_setpoint_3">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> µA</string>
+           </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <double>10000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="7">
+          <widget class="QLineEdit" name="B_z">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="4">
+          <widget class="QDoubleSpinBox" name="B_Y_setpoint">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> T</string>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="minimum">
+            <double>-1.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>0.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <widget class="QDoubleSpinBox" name="B_X_setpoint">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> T</string>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="minimum">
+            <double>-1.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>0.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0" rowspan="2" colspan="3">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Target field</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="4">
+          <widget class="QCheckBox" name="voltage_criterion_on">
+           <property name="text">
+            <string>Voltage criterion</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4" rowspan="2">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Time between 
+ measurements cycles</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="7">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Repeat each point</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="7">
+          <widget class="QDoubleSpinBox" name="B_Z_setpoint">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> T</string>
+           </property>
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="minimum">
+            <double>-9.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>9.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="value">
+            <double>0.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="1">
+          <widget class="QLineEdit" name="B_x">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="7">
+          <widget class="QLabel" name="label_71">
+           <property name="text">
+            <string>Z</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="4">
+          <widget class="QLabel" name="label_73">
+           <property name="text">
+            <string>Y</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="4">
+          <widget class="QLineEdit" name="B_y">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QLabel" name="label_51">
+           <property name="text">
+            <string>X</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="4">
+          <widget class="QDoubleSpinBox" name="IV_voltage_criterion">
+           <property name="minimumSize">
+            <size>
+             <width>91</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string> µV</string>
+           </property>
+           <property name="decimals">
+            <number>3</number>
+           </property>
+           <property name="maximum">
+            <double>100000000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>100.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="4">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QDoubleSpinBox" name="anglestart">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>710</y>
+          <width>62</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="suffix">
+         <string> °</string>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="anglestop">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>710</y>
+          <width>62</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="suffix">
+         <string> °</string>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="anglestep">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>710</y>
+          <width>62</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="suffix">
+         <string> °</string>
+        </property>
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>690</y>
+          <width>46</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>690</y>
+          <width>46</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Stop</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>690</y>
+          <width>46</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Step</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>710</y>
+          <width>46</width>
+          <height>13</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Angle</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Detailed Graphs</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="Plot2DDataWidget" name="Plot2D_1" native="true"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="Plot2DDataWidget" name="Plot2D_2" native="true"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="Plot2DDataWidget" name="Plot2D_3" native="true"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="Plot2DDataWidget" name="Plot2D_4" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Instruments panel</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="0">
+         <widget class="QMdiArea" name="instr_mdi">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="viewMode">
+           <enum>QMdiArea::SubWindowView</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Plot2DDataWidget</class>
+   <extends>QWidget</extends>
+   <header>Plot2DDataWidget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Instruments_connection</class>
+   <extends>QWidget</extends>
+   <header>Instruments_connection</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Macro_editor</class>
+   <extends>QWidget</extends>
+   <header>Macro_editor</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>savefile_txt_input</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PyGMI</receiver>
+   <slot>switch_measurements_state()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>905</x>
+     <y>845</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>866</x>
+     <y>490</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>PyGMI</receiver>
+   <slot>savefile_txt_input_open()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>455</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>806</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_13</sender>
+   <signal>clicked()</signal>
+   <receiver>PyGMI</receiver>
+   <slot>create_new_plotwidget()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1168</x>
+     <y>825</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1634</x>
+     <y>503</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_14</sender>
+   <signal>clicked()</signal>
+   <receiver>PyGMI</receiver>
+   <slot>create_config_menu()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1484</x>
+     <y>765</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1633</x>
+     <y>426</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>PyGMI</receiver>
+   <slot>update_list_of_meas_program()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>533</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>switch_text()</slot>
+  <slot>savefile_changed()</slot>
+  <slot>estimate_end_time()</slot>
+  <slot>refresh_instr_list()</slot>
+  <slot>commence_T_mesure()</slot>
+  <slot>change_DC_bias()</slot>
+  <slot>change_AC_drive()</slot>
+  <slot>suggest_file_name()</slot>
+  <slot>generate_scan()</slot>
+  <slot>add_a_scan_step()</slot>
+  <slot>start_listed_meas()</slot>
+  <slot>fill_scan_col()</slot>
+  <slot>generate_filename_col()</slot>
+  <slot>change_sensitivity()</slot>
+  <slot>init_instr()</slot>
+  <slot>tab_move_up()</slot>
+  <slot>tab_move_down()</slot>
+  <slot>change_time_cste()</slot>
+  <slot>change_filter_slop()</slot>
+  <slot>oscillo_acquire()</slot>
+  <slot>oscillo_save_to_file()</slot>
+  <slot>start_RT_measures()</slot>
+  <slot>urgent_stop_mesure()</slot>
+  <slot>switch_measurements_state()</slot>
+  <slot>tab_insert_row()</slot>
+  <slot>tab_remove_row()</slot>
+  <slot>text_box_buttons_slots()</slot>
+  <slot>temp_cont_init_ramp()</slot>
+  <slot>temp_control_stop_ramp()</slot>
+  <slot>temp_cont_set_setpoint()</slot>
+  <slot>sequence_open()</slot>
+  <slot>sequence_save()</slot>
+  <slot>sequence_reset()</slot>
+  <slot>sequence_stop()</slot>
+  <slot>sequence_run()</slot>
+  <slot>savefile_txt_input_open()</slot>
+  <slot>change_frequency()</slot>
+  <slot>plus_minus_stop()</slot>
+  <slot>plus_minus_start()</slot>
+  <slot>plot_index_update()</slot>
+  <slot>add_sequence_line()</slot>
+  <slot>tab_remove_row_2()</slot>
+  <slot>tab_insert_row_2()</slot>
+  <slot>tab_remove_row_3()</slot>
+  <slot>tab_insert_row_3()</slot>
+  <slot>tab_remove_row_ang()</slot>
+  <slot>tab_insert_row_ang()</slot>
+  <slot>voltmeter_set_rate()</slot>
+  <slot>update_timers_timeout()</slot>
+  <slot>PID_tuning()</slot>
+  <slot>PID_P_update()</slot>
+  <slot>PID_I_update()</slot>
+  <slot>PID_D_update()</slot>
+  <slot>create_new_plotwidget()</slot>
+  <slot>create_config_menu()</slot>
+  <slot>temp_cont_init_rampVTI()</slot>
+  <slot>temp_control_stop_rampVTI()</slot>
+  <slot>temp_cont_set_setpointVTI()</slot>
+  <slot>update_list_of_meas_program()</slot>
+ </slots>
+</ui>

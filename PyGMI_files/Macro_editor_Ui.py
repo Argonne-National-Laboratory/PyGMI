@@ -1,0 +1,105 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'C:\Experiments\PyGMI\PyGMI-release - v3.0 beta 2.0 - WIP\PyGMI_files\Macro_editor.ui'
+#
+# Created: Thu Jul 30 10:37:38 2015
+#      by: pyside-uic 0.2.15 running on PySide 1.2.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PySide import QtCore, QtGui
+
+class Ui_Macro_editor(object):
+    def setupUi(self, Macro_editor):
+        Macro_editor.setObjectName("Macro_editor")
+        Macro_editor.resize(1044, 806)
+        self.gridLayout = QtGui.QGridLayout(Macro_editor)
+        self.gridLayout.setObjectName("gridLayout")
+        self.macro_textbox = MyMacroEdit(Macro_editor)
+        self.macro_textbox.setLineWrapMode(QtGui.QPlainTextEdit.WidgetWidth)
+        self.macro_textbox.setBackgroundVisible(False)
+        self.macro_textbox.setObjectName("macro_textbox")
+        self.gridLayout.addWidget(self.macro_textbox, 0, 0, 1, 3)
+        self.macrocommandtree = QtGui.QTreeView(Macro_editor)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.macrocommandtree.sizePolicy().hasHeightForWidth())
+        self.macrocommandtree.setSizePolicy(sizePolicy)
+        self.macrocommandtree.setProperty("showDropIndicator", False)
+        self.macrocommandtree.setAlternatingRowColors(True)
+        self.macrocommandtree.setTextElideMode(QtCore.Qt.ElideRight)
+        self.macrocommandtree.setRootIsDecorated(True)
+        self.macrocommandtree.setUniformRowHeights(False)
+        self.macrocommandtree.setItemsExpandable(True)
+        self.macrocommandtree.setAnimated(False)
+        self.macrocommandtree.setWordWrap(True)
+        self.macrocommandtree.setExpandsOnDoubleClick(True)
+        self.macrocommandtree.setObjectName("macrocommandtree")
+        self.macrocommandtree.header().setHighlightSections(True)
+        self.gridLayout.addWidget(self.macrocommandtree, 0, 3, 1, 1)
+        self.label_2 = QtGui.QLabel(Macro_editor)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.mac_curr_line = QtGui.QLineEdit(Macro_editor)
+        self.mac_curr_line.setEnabled(False)
+        self.mac_curr_line.setObjectName("mac_curr_line")
+        self.gridLayout.addWidget(self.mac_curr_line, 2, 0, 1, 3)
+        self.pushButton_8 = QtGui.QPushButton(Macro_editor)
+        self.pushButton_8.setDefault(False)
+        self.pushButton_8.setObjectName("pushButton_8")
+        self.gridLayout.addWidget(self.pushButton_8, 3, 0, 1, 1)
+        self.pushButton_9 = QtGui.QPushButton(Macro_editor)
+        self.pushButton_9.setDefault(False)
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.gridLayout.addWidget(self.pushButton_9, 3, 1, 1, 1)
+        self.pushButton_10 = QtGui.QPushButton(Macro_editor)
+        self.pushButton_10.setDefault(False)
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.gridLayout.addWidget(self.pushButton_10, 3, 2, 1, 1)
+        self.pushButton_11 = QtGui.QPushButton(Macro_editor)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.pushButton_11.setFont(font)
+        self.pushButton_11.setDefault(False)
+        self.pushButton_11.setObjectName("pushButton_11")
+        self.gridLayout.addWidget(self.pushButton_11, 4, 0, 1, 2)
+        self.pushButton_12 = QtGui.QPushButton(Macro_editor)
+        self.pushButton_12.setEnabled(True)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_12.sizePolicy().hasHeightForWidth())
+        self.pushButton_12.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(26)
+        font.setWeight(9)
+        font.setItalic(False)
+        font.setBold(False)
+        self.pushButton_12.setFont(font)
+        self.pushButton_12.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 26pt \"Arial\";")
+        self.pushButton_12.setDefault(False)
+        self.pushButton_12.setObjectName("pushButton_12")
+        self.gridLayout.addWidget(self.pushButton_12, 2, 3, 3, 1)
+
+        self.retranslateUi(Macro_editor)
+        QtCore.QObject.connect(self.pushButton_9, QtCore.SIGNAL("clicked()"), Macro_editor.save_macro)
+        QtCore.QObject.connect(self.pushButton_8, QtCore.SIGNAL("clicked()"), Macro_editor.open_macro)
+        QtCore.QObject.connect(self.pushButton_11, QtCore.SIGNAL("clicked()"), Macro_editor.run_macro)
+        QtCore.QObject.connect(self.pushButton_10, QtCore.SIGNAL("clicked()"), self.macro_textbox.clear)
+        QtCore.QObject.connect(self.pushButton_12, QtCore.SIGNAL("clicked()"), Macro_editor.stop_macro)
+        QtCore.QMetaObject.connectSlotsByName(Macro_editor)
+
+    def retranslateUi(self, Macro_editor):
+        Macro_editor.setWindowTitle(QtGui.QApplication.translate("Macro_editor", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("Macro_editor", "Current line in the macro", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_8.setText(QtGui.QApplication.translate("Macro_editor", "Open Macro", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_9.setText(QtGui.QApplication.translate("Macro_editor", "Save Macro", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_10.setText(QtGui.QApplication.translate("Macro_editor", "Clear Macro", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_11.setText(QtGui.QApplication.translate("Macro_editor", "Run Macro", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_12.setText(QtGui.QApplication.translate("Macro_editor", "Stop Macro", None, QtGui.QApplication.UnicodeUTF8))
+
+from Macro_editor_textbox import MyMacroEdit
