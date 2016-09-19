@@ -1,5 +1,5 @@
-2016/09/09 Major update
-Master branch was designed for the latest version of Python 2 and use PySide
+2016/09/18 Major update
+Master branch was designed for the latest version of Python 2 and uses PySide
 New beta release (branch "v3-beta") was adapted to work with PyQt and so it should now work with Spyder (in the spyder console subwindow, select using the "console" tab, not the "IPython console" tab)
 v3-beta updates:
 -switched to PyQt and Spyder
