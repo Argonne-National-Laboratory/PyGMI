@@ -1,5 +1,4 @@
-from PySide.QtGui import QWidget,QMainWindow,QApplication,QColorDialog
-from PySide.QtCore import QTimer
+from PyQt4.QtGui import QWidget,QApplication
 import TableWith2Buttons4Col_Ui
 
 

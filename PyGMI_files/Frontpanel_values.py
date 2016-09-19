@@ -8,8 +8,8 @@
 # for that we just add the line "self.my_text=ui.my_text_entry.text()" 
 # In the measurement scripts, self.my_text will be accessible as f.my_text
 
-import re
-import numpy as np
+#import re
+#import numpy as np
 
 class Frontpanel_values():
     def __init__(self,ui):
@@ -47,9 +47,9 @@ class Frontpanel_values():
 
         self.IV_voltage_criterion=ui.IV_voltage_criterion.value()*1e-6
 
-        self.B_X_setpoint=ui.B_X_setpoint.value()
-        self.B_Y_setpoint=ui.B_Y_setpoint.value()
-        self.B_Z_setpoint=ui.B_Z_setpoint.value()
+        self.B_start=ui.B_X_setpoint.value()
+        self.B_stop=ui.B_Y_setpoint.value()
+        self.B_step=ui.B_Z_setpoint.value()
 
         self.anglestart=ui.anglestart.value()
         self.anglestop=ui.anglestop.value()

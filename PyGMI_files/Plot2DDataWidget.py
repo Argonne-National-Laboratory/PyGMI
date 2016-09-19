@@ -1,5 +1,5 @@
-from PySide.QtGui import QWidget,QMainWindow,QApplication,QColorDialog
-from PySide.QtCore import QTimer
+from PyQt4.QtGui import QWidget,QApplication,QColorDialog,QColor
+from PyQt4.QtCore import QTimer
 import Plot2DDataWidget_Ui
 
 
@@ -48,14 +48,16 @@ class Plot2DDataWidget(QWidget):
     def updateY(self,value):
         self.y_index=value
         #self.update_plot()
-        
+
     def change_line_color(self,color=None):
-        if color==None:color=QColorDialog.getColor()
+        #yellow 4294967040        
+        if color==None:color=QColorDialog.getColor(QColor(4294967040),None,'Line color',QColorDialog.ShowAlphaChannel)
         if color.isValid():
             self.curve.setPen(color)
             
     def change_point_color(self,color=None):
-        if color==None:color=QColorDialog.getColor()
+        #blue 4279259391
+        if color==None:color=QColorDialog.getColor(QColor(4279259391),None,'Point color',QColorDialog.ShowAlphaChannel)
         if color.isValid():
             self.curve.setSymbolBrush(color)
             
