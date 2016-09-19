@@ -4,8 +4,8 @@ import time
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::17"):
-        self.io = visa.ResourceManager().open_resource(VISA_address)
-        print self.io.query("*IDN?")
+        self.io = visa.instrument(VISA_address)
+        print self.io.ask("*IDN?")
         sens_list_utf8=['10 mV','100 mV','1 V','10 V','100 V']
         self.sens_list_num=[0.01,0.1,1,10,100]
         #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
@@ -26,14 +26,6 @@ class Connect_Instrument():
         time.sleep(duration)
         self.io.write(':syst:faz off')
         self.io.write(':SYSTem:AZERo:STATe OFF')
-
-    def conf_channel2(self):
-        lnanoV=[':SENS:CHAN 2',':CONF:VOLT',':INIT:CONT OFF']
-        for txt in lnanoV:
-            self.io.write(txt)
-
-    def switch_channel(self,chan=1):
-        self.io.write(':SENS:CHAN '+str(chan))
 
     def setup_single_shot(self,verbose=False):
         print "configuring Keithley2182A for continuously taking low speed single shot readings"
@@ -78,13 +70,13 @@ class Connect_Instrument():
         comboBox.addItems(self.sensitivity)                
 
     def query_unit_Id(self):
-        return self.io.query("*IDN?")
+        return self.io.ask("*IDN?")
 
     def reset_and_query_voltage(self):
         """This query is much slower than a “:READ?” or “:FETCh?” query because it has to
 reconfigure the instrument each time it is sent. It will reset the NPLC, autoranging, and
 averaging to default settings."""
-        return float(self.io.query(":MEAS:VOLT?"))
+        return float(self.io.ask(":MEAS:VOLT?"))
 
 ##:READ? :This command performs three actions. It will reset the trigger model to the idle layer
 ##(equivalent to the :ABORt command), take the trigger model out of idle (equivalent to the :INIT
@@ -98,17 +90,17 @@ averaging to default settings."""
 ##(:INIT:CONT ON), sending this query may cause a –213, “Init ignored” error, but will still give
 ##a new reading.
     def query_voltage(self):
-        return float(self.io.query(":READ?"))
+        return float(self.io.ask(":READ?"))
     
     def query_latest_reading(self):
         """This command does not trigger a measurement. The command simply requests the last
 available reading. Note that this command can repeatedly return the same reading."""
-        return float(self.io.query(':FETCh?'))
+        return float(self.io.ask(':FETCh?'))
 
     def query_latest_fresh_reading(self):
         """This query is similar to the “:FETCh?” in that it returns the latest reading from the instrument,
 but has the advantage of making sure that it does not return the same reading twice."""
-        return float(self.io.query(':sens:data:fresh?'))
+        return float(self.io.ask(':sens:data:fresh?'))
 
 #:MEASure:<function>?
 #Parameters
