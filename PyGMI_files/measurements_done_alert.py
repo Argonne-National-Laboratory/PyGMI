@@ -6,6 +6,7 @@ import os
 from zipfile import ZipFile
 
 from email import encoders
+from email.message import Message
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText

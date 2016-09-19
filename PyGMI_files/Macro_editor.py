@@ -1,11 +1,10 @@
-import os,time
-from PyQt4.QtGui import QWidget,QApplication,QSyntaxHighlighter,QTextCharFormat,QFont,QFileDialog,QStandardItemModel,QStandardItem
-from PyQt4.QtCore import Qt,QTimer,QRegExp
+from PySide.QtGui import QWidget,QMainWindow,QApplication,QSyntaxHighlighter,QTextCharFormat,QFont,QColor,QFileDialog,QStandardItemModel,QStandardItem
+from PySide.QtCore import Qt,QTimer,QRegExp
 from Macro_editor_Ui import Ui_Macro_editor
-
+import Measurements_programs
 #Email capabilities
 from measurements_done_alert import Email_alert,Email_one_file,Email_directory
-
+import time
 ################################################
 #non capturing version of the regular expressions
 #Regexfloat="(?:[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)"
@@ -14,7 +13,7 @@ from measurements_done_alert import Email_alert,Email_one_file,Email_directory
 #capturing version of the regular expressions
 Regexfloat="([-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)"
 Regexsimplefile="(\w+[\w -\./]*)"
-
+Regexprogramfile="("+"|".join(Measurements_programs.__all__)+")"
 ################################################
 #Regular expression for interpreting macro commands and capturing the parameters
 
@@ -32,7 +31,36 @@ class Macro_editor(QWidget):
         # but the elements of the GUI will actually be children of the GUI (i.e of self.ui not of self)
         self.ui.setupUi(self)
         self.setWindowTitle(title)
-
+        
+        # List the Macro command that will be loaded and available
+        # into the Macro editor.
+        # Once you have created a new Macro command class in this file
+        # you must add it in this list for it to be available in 
+        # the Macro editor.
+        # You may also remove commands from this list if you want to deactivate them
+        self.valid_list_of_commands=[
+                                    AngleCommand(),
+                                    CommentsCommand(),
+                                    WaitCommand(),
+                                    WaitForEpoch(),
+                                    SetFieldCommand(),
+                                    WaitForHStableCommand(),
+                                    WaitForMeasureCommand(),
+                                    SetPersistFieldCommand(),
+                                    SetTempCommand(),
+                                    SetHeaterCommand(),
+                                    WaitForTStableCommand(),
+                                    SetTempVTICommand(),
+                                    SetVTIHeaterCommand(),
+                                    SetSaveFileCommand(),
+                                    StartMeasureCommand(),
+                                    StopMeasureCommand(),
+                                    EmailCommand(),
+                                    EmailFileCommand(),
+                                    EmailDirCommand(),
+                                    SetICommand(),
+                                    SetVCommand()]        
+        
         ### Dirty FIX: the macro editor is in a layout and a group box which somehow
         ### put it way down the list of children, so we need the 6th order parent of that to get to the main !
         ##self.main=self.parent().parent().parent().parent().parent().parent()
@@ -40,76 +68,28 @@ class Macro_editor(QWidget):
         ### this has the added benefit of keeping track of which class may use the main
         self.main=parent
         self.macro_isActive=False
-
-    def setupmain(self,main):
-        # first called at startup by main program
-        self.main = main
-
-    def update_commands(self,meas_prog_list_byname):
-        global Regexprogramfile
-        Regexprogramfile="("+"|".join(meas_prog_list_byname)+")"
-        self.valid_list_of_commands = self.get_list_of_commands()
+        
+        self.macro_timer = QTimer()
+        #Use a single shot timer in between commands
+        #otherwise it may fire again before the task is completed
+        self.macro_timer.setSingleShot(True)
+        self.macro_timer.timeout.connect(self.next_command)
+               
         #initiate syntax highlighting for the macro editor
         self.highlighter = MacroHighlighter(self.ui.macro_textbox.document(),self.valid_list_of_commands)
+        
         #update the list of available macro commands in the user interface
         model=QStandardItemModel()
         parentItem = model.invisibleRootItem()
         for command in self.valid_list_of_commands:
             parentItem.appendRow(QStandardItem(command.label))
         self.ui.macrocommandtree.setModel(model)
-
-    def setuptimer(self):
-        # second called at startup by main program
-        self.valid_list_of_commands = self.get_list_of_commands()
-
-        self.macro_timer = QTimer()
-        #Use a single shot timer in between commands
-        #otherwise it may fire again before the task is completed
-        self.macro_timer.setSingleShot(True)
-        self.macro_timer.timeout.connect(self.next_command)
-                       
-
-
-    def get_list_of_commands(self):        
-        # List the Macro command that will be loaded and available
-        # into the Macro editor.
-        # Once you have created a new Macro command class in this file
-        # you must add it in this list for it to be available in 
-        # the Macro editor.
-        # You may also remove commands from this list if you want to deactivate them
-        return [
-#           AngleCommand(),
-            CommentsCommand(),
-            WaitCommand(),
-            WaitForEpoch(),
-#            SetFieldCommand(),
-#            WaitForHStableCommand(),
-            WaitForMeasureCommand(),
-#            SetPersistFieldCommand(),
-#            SetTempCommand(),
-#            SetHeaterCommand(),
-#            WaitForTStableCommand(),
-#            SetTempVTICommand(),
-#            SetVTIHeaterCommand(),
-            SetPPMSTempCommand(),
-            SetPPMSFieldCommand(),
-            WaitForTPPMSStableCommand(),
-            WaitForHPPMSStableCommand(),
-            SetSaveFileCommand(),
-            StartMeasureCommand(),
-            StopMeasureCommand(),
-            EmailCommand(),
-            EmailFileCommand(),
-            EmailDirCommand(),
-            SetICommand(),
-            SetVCommand(),
-            SetUICommand(self.main)]
-                
+                 
     def save_macro(self):
         #the static method calls the native file system method
-        fileName = QFileDialog.getSaveFileName(self,"Save Macro",directory= "./Macro",filter="Macro file (*.mac)")
+        fileName = QFileDialog.getSaveFileName(self,"Save Macro",dir= "./Macro",filter="Macro file (*.mac)")
         #open() does not work with 'unicode' type object, conversion is needed 
-#        fileName=fileName[0].encode('utf8')
+        fileName=fileName[0].encode('utf8')
         if fileName!="":
             #get the macro text from frontpanel text box
             mac_unicode=self.ui.macro_textbox.toPlainText()
@@ -122,9 +102,9 @@ class Macro_editor(QWidget):
             savefile.close()
                 
     def open_macro(self):
-        fileName = QFileDialog.getOpenFileName(self,"Open Macro",directory= "./Macro",filter="Macro file (*.mac)")
+        fileName = QFileDialog.getOpenFileName(self,"Open Macro",dir= "./Macro",filter="Macro file (*.mac)")
         #open() does not work with 'unicode' type object, conversion is needed 
-#        fileName=fileName[0].encode('utf8')
+        fileName=fileName[0].encode('utf8')
         if fileName!="":
             open_file=open(fileName,'r')
             self.ui.macro_textbox.setPlainText(unicode(open_file.read(-1),encoding='utf-8')) #'-1' to read the whole file at once
@@ -141,6 +121,7 @@ class Macro_editor(QWidget):
             self.macro_timer.start(0)
     
     def next_command(self):
+        stdwtime=500
         if self.current_line<self.cur_mac_max:
             #update the info line with the line being analyzed
             action=self.current_macro[self.current_line]
@@ -385,90 +366,6 @@ class SetPersistFieldCommand():
         self.next_move=1
         self.wait_time=500
 
-
-class SetPPMSTempCommand():
-    def __init__(self):
-        self.regexp_str="Set PPMS Temperature to "+Regexfloat+" K @ "+Regexfloat+" K/min (FastSettle|NoOvershoot)?"
-        self.label="Set PPMS Temperature to X K @ X K/min (FastSettle/NoOvershoot)"
-        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
-        self.regexp=QRegExp(self.regexp_str)
-        self.waiting=False
-        self.waiting_start=0
-    
-    def run(self,main):
-        values=self.regexp.capturedTexts()
-        ##get the loop index and setpoint value
-        setpoint=float(values[1])
-        rate=float(values[2])
-        #if an approach was also provided, go to this setpoint at this rate
-        approach = 'FastSettle'      
-        if values[3]!='':approach = values[3]
-        with main.reserved_access_to_instr:
-            main.ppms.set_temperature(setpoint,rate,approach)
-        
-        #go to next line of macro after stdwtime (give some time to process other events)
-        self.next_move=1
-        self.wait_time=100
-
-class SetPPMSFieldCommand():
-    def __init__(self):
-        self.regexp_str="Set PPMS Field to "+Regexfloat+" Oe @ "+Regexfloat+" Oe/s (Linear|NoOvershoot|Oscillate)? (Persistent|Driven)?"
-        self.label="Set PPMS Field to X Oe @ X Oe/s (Linear|NoOvershoot|Oscillate) (Persistent|Driven)"
-        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
-        self.regexp=QRegExp(self.regexp_str)
-        self.waiting=False
-        self.waiting_start=0
-    
-    def run(self,main):
-        values=self.regexp.capturedTexts()
-        ##get the loop index and setpoint value
-        setpoint=float(values[1])
-        rate=float(values[2])
-        #if an approach was also provided, go to this setpoint at this rate
-        approach = 'Linear'
-        mode = 'Persistent'
-        if values[3]!='':approach = values[3]
-        if values[4]!='':mode = values[4]
-        with main.reserved_access_to_instr:
-            main.ppms.set_field(setpoint,rate,approach,mode)
-        
-        #go to next line of macro after stdwtime (give some time to process other events)
-        self.next_move=1
-        self.wait_time=100
-
-class WaitForHPPMSStableCommand():
-    def __init__(self):
-        self.regexp_str="Wait(?: at most "+Regexfloat+" secs)? for PPMS Field to reach "+Regexfloat+" Oe"
-        self.label="Wait(at most X secs) for PPMS Field to reach X Oe"
-        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
-        self.regexp=QRegExp(self.regexp_str)
-        self.waiting=False
-        self.waiting_start=0
-    
-    def run(self,main):
-        values=self.regexp.capturedTexts()
-        #Wait for the field to be stable and
-        #within 5% of specified field
-        #(and lock only when accessing the instrument)
-        with main.reserved_access_to_instr:
-            Herror, H, status = main.ppms.get_field()
-        if self.waiting==False:
-            self.waiting=True
-            self.waiting_start=time.clock()
-        if 'Stable' in status and abs(H-float(values[2]))<abs(float(values[2])*0.05):
-            #Field is stable, go to next line of macro
-            self.waiting=False
-            self.next_move=1
-            self.wait_time=500
-        elif values[1]!='' and time.clock()-self.waiting_start>float(values[1]):
-            #time limit is reached, go to next line of macro
-            self.waiting=False
-            self.next_move=1
-            self.wait_time=500
-        else:
-            #wait 10s and check again
-            self.next_move=0
-            self.wait_time=10000 
                                     
 class SetTempCommand():
     def __init__(self):
@@ -515,40 +412,7 @@ class SetHeaterCommand():
         self.next_move=1
         self.wait_time=500   
 
-class WaitForTPPMSStableCommand():
-    def __init__(self):
-        self.regexp_str="Wait(?: at most "+Regexfloat+" secs)? for PPMS Temp to reach "+Regexfloat+" K"
-        self.label="Wait(at most X secs) for PPMS Temp to reach X K"
-        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
-        self.regexp=QRegExp(self.regexp_str)
-        self.waiting=False
-        self.waiting_start=0
-    
-    def run(self,main):
-        values=self.regexp.capturedTexts()
-        #Wait for the temperature measurement to be stable and
-        #within 5% of specified temperature
-        #(and lock only when accessing the instrument)
-        with main.reserved_access_to_instr:
-            Terror, T, status = main.ppms.get_temperature()
-        if self.waiting==False:
-            self.waiting=True
-            self.waiting_start=time.clock()
-        if status == 'Stable' and abs(T-float(values[2]))<abs(float(values[2])*0.05):
-            #Temperature is stable, go to next line of macro
-            self.waiting=False
-            self.next_move=1
-            self.wait_time=500
-        elif values[1]!='' and time.clock()-self.waiting_start>float(values[1]):
-            #time limit is reached, go to next line of macro
-            self.waiting=False
-            self.next_move=1
-            self.wait_time=500
-        else:
-            #wait 10s and check again
-            self.next_move=0
-            self.wait_time=10000 
-            
+
 class WaitForTStableCommand():
     def __init__(self):
         self.regexp_str="Wait(?: at most "+Regexfloat+" secs)? for channel (\w) to reach "+Regexfloat+" \+/\- "+Regexfloat+" K"
@@ -749,24 +613,6 @@ class EmailDirCommand():
         self.wait_time=500   
 
 
-class SetUICommand():
-    def __init__(self,main):
-#        print "|".join(dir(main.ui))
-        self.regexp_str="Set UI ("+"|".join(dir(main.ui))+") to "+Regexfloat
-        self.label="Set UI PROPERTY to FLOAT"
-        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
-        self.regexp=QRegExp(self.regexp_str)
-    
-    def run(self,main):
-        values=self.regexp.capturedTexts()
-        #set the property
-        prop = eval("main.ui."+values[1])
-        prop.setValue(float(values[2]))
-        #go to next line of macro
-        self.next_move=1
-        self.wait_time=10
-    
-
 class SetICommand():
     def __init__(self):
         self.regexp_str="Set current (\d) to "+Regexfloat+" A"
@@ -853,9 +699,5 @@ if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
     window = Macro_editor(app)
-    window.setupmain(None)
-    import Measurements_programs
-    window.update_commands(Measurements_programs.__all__)
-    window.setuptimer()
     window.show()
     sys.exit(app.exec_())

@@ -1,5 +1,5 @@
-from PyQt4.QtGui import QDialog,QApplication,QColorDialog,QFileDialog,QColor
-
+from PySide.QtGui import QDialog,QMainWindow,QApplication,QColorDialog,QFileDialog,QColor
+from PySide.QtCore import QTimer
 import Config_menu_Ui
 
 class Config_menu(QDialog):
@@ -36,25 +36,22 @@ class Config_menu(QDialog):
         
     
     def change_line_color(self):
-        #yellow 4294967040        
-        color=QColorDialog.getColor(QColor(4294967040),None,'Line color',QColorDialog.ShowAlphaChannel)
+        color=QColorDialog.getColor()
         if color.isValid():
             self.linecolor=color
             
     def change_point_color(self):
-        #blue 4279259391
-        color=QColorDialog.getColor(QColor(4279259391),None,'Point color',QColorDialog.ShowAlphaChannel)
+        color=QColorDialog.getColor()
         if color.isValid():
             self.pointcolor=color
 
     def saveconf(self,fileName=None):
         if fileName==None:
             #the static method calls the native file system
-            fileName = QFileDialog.getSaveFileName(self,caption="Save Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
+            fileName = QFileDialog.getSaveFileName(self,"Save Configuration",dir= "./Configuration/Parameters",filter="Config file (*.cfg)")
             #WARNING: write() and open() do not work with 'unicode' type object
             #they have to be converted to a string first (that is a list of bytes)
-            #problem solved in PyQt but not in PySide
-            #fileName=fileName[0].encode('utf8')
+            fileName=fileName[0].encode('utf8')
         if fileName!="":
             savefile=open(fileName,'w')
             savefile.write(self.ui.macfold.text().encode('utf8')+"\n")
@@ -62,15 +59,15 @@ class Config_menu(QDialog):
             savefile.write(self.ui.smtpadd.text().encode('utf8')+"\n")
             savefile.write(self.ui.login.text().encode('utf8')+"\n")
             savefile.write(self.ui.mdp.text().encode('utf8')+"\n")
-            savefile.write(str(self.linecolor.rgba())+"\n")
-            savefile.write(str(self.pointcolor.rgba())+"\n")
+            savefile.write(str(self.linecolor.toTuple())+"\n")
+            savefile.write(str(self.pointcolor.toTuple())+"\n")
             savefile.write(str(self.ui.pointsize.value())+"\n")
             savefile.write(str(self.ui.smtpport.value())+"\n")
             savefile.close()
         
     def loadconf(self,fileName=None):
         if fileName==None:
-            fileName = QFileDialog.getOpenFileName(self,caption="Load Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
+            fileName = QFileDialog.getOpenFileName(self,"Load Configuration",dir= "./Configuration/Parameters",filter="Config file (*.cfg)")
             #open() does not work with 'unicode' type object, conversion is needed
             fileName=fileName[0].encode('utf8')
         if fileName!="":
@@ -80,21 +77,21 @@ class Config_menu(QDialog):
             self.ui.smtpadd.setText(file_opened.readline()[:-1])
             self.ui.login.setText(file_opened.readline()[:-1])
             self.ui.mdp.setText(file_opened.readline()[:-1])
-            self.linecolor=QColor.fromRgba(int(file_opened.readline()[:-1]))
-            self.pointcolor=QColor.fromRgba(int(file_opened.readline()[:-1]))
+            a=map(int,file_opened.readline()[1:-2].split(","))
+            self.linecolor=QColor(a[0],a[1],a[2],a[3])
+            a=map(int,file_opened.readline()[1:-2].split(","))
+            self.pointcolor=QColor(a[0],a[1],a[2],a[3])
             self.ui.pointsize.setValue(int(file_opened.readline()))
             self.ui.smtpport.setValue(int(file_opened.readline()))
             file_opened.close()       
 
 
 if __name__ == "__main__":
-    # if launched as main, the single './' should be replaced with '../'
-    # because of the different working directory
     import sys
     app = QApplication(sys.argv)
     a={}
     window = Config_menu(app,config_dict=a,debug=True)
-    window.loadconf("../Configuration/Parameters/Parameters.cfg")
+    window.loadconf('Parameters.cfg')
     window.show()
     #window.update_values()
     sys.exit(app.exec_())

@@ -437,7 +437,7 @@ color: rgb(255, 255, 255);</string>
       <number>6</number>
      </property>
      <item row="1" column="0">
-      <widget class="QCheckBox" name="ppms_on">
+      <widget class="QCheckBox" name="temp_controller_on">
        <property name="text">
         <string/>
        </property>
@@ -447,14 +447,14 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item row="1" column="1" colspan="2">
-      <widget class="QLineEdit" name="ppms_visa_address">
+      <widget class="QLineEdit" name="temp_controller_visa_address">
        <property name="text">
         <string>ID12_LS340_Temp_Controller</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QComboBox" name="ppms_instrtype"/>
+      <widget class="QComboBox" name="temp_controller_instrtype"/>
      </item>
      <item row="2" column="1" colspan="3">
       <widget class="QLabel" name="label_34">
@@ -716,7 +716,7 @@ color: rgb(255, 255, 255);</string>
      <item row="0" column="1" colspan="3">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>PPMS</string>
+        <string>Temperature Controller</string>
        </property>
       </widget>
      </item>
@@ -882,6 +882,18 @@ Instruments configuration</string>
        <string>Mapping</string>
       </property>
      </widget>
+     <zorder>mapping</zorder>
+     <zorder>channels_list_1</zorder>
+     <zorder>label_77</zorder>
+     <zorder>label_71</zorder>
+     <zorder>label_32</zorder>
+     <zorder>channels_list_2</zorder>
+     <zorder>label_32</zorder>
+     <zorder>channels_list_1</zorder>
+     <zorder>label_71</zorder>
+     <zorder>channels_list_2</zorder>
+     <zorder>mapping</zorder>
+     <zorder>label_77</zorder>
     </widget>
    </item>
    <item row="4" column="2">

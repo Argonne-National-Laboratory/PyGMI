@@ -14,9 +14,9 @@ else:
     #Get the module directory name from __file__
     #which contains the absolute path of the file
     #being executed
-    rep_module=os.path.dirname(__file__)+os.sep        
+    rep_module=__file__[:__file__.rindex(os.sep)]+os.sep        
 
-import PyQt4.uic
+import pysideuic
 
 def compile_if_necessary(input_ui_file,output_py_file):
     #prepare the file names
@@ -29,7 +29,7 @@ def compile_if_necessary(input_ui_file,output_py_file):
     if not(os.path.isfile(output_path)) or os.path.getmtime(input_path)>os.path.getmtime(output_path):
         print "update detected: recompiling "+input_ui_file
         f=open(output_path,"w")
-        PyQt4.uic.compileUi(input_path,f)
+        pysideuic.compileUi(input_path,f)
         f.close()    
 
 compile_if_necessary("Graphical_User_Interface.ui","GUI_compiled.py")
