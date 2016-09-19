@@ -1,5 +1,5 @@
 import os
-module_folder=__file__[:__file__.rindex(os.sep)]+os.sep
+module_folder=os.path.dirname(__file__)+os.sep
 #Make a list of all the measurements programs in the folder
 __all__=[]
 for my_file in os.listdir(module_folder):

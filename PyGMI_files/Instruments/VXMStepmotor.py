@@ -26,7 +26,8 @@ class Connect_Instrument():
         #minus sign is necessary so that
         #angle>0 corresponds to a trigonometrical/CCW rotation and
         #angle<0 corresponds to antitrigo/ClockWise
-        self.io.timeout=10+abs(angle/angular_speed)
+        #timeout in milliseconds for PyVisa > 1.5
+        self.io.timeout=1000*(10+abs(angle/float(angular_speed)))
         motor_steps=-int(angle/0.015) 
         motor_speed=int(angular_speed/0.015)
         self.io.write('C,S1M'+str(motor_speed)+',I1M'+str(motor_steps)+',R')
@@ -52,7 +53,7 @@ class Connect_Instrument():
 ##    def query_temp(self,channel):
 ##        #reports the current temperature reading on any of the input channels
 ##        #channel can be A,B,C,D
-##        return float(self.io.ask("KRDG? "+channel))
+##        return float(self.io.query("KRDG? "+channel))
 ##
 
 ##To put the VXM in the On-Line mode/programming mode, the host must send either an

@@ -1,4 +1,4 @@
-from PySide.QtGui import QPlainTextEdit
+from PyQt4.QtGui import QPlainTextEdit
 
 #future update
 #This class provides a text editor deriving from Qt QPlainTextEdit

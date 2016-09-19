@@ -29,7 +29,7 @@
 
 
 import sys
-from PySide.QtGui import QApplication
+from PyQt4.QtGui import QApplication
 import PyGMI_files as PyGMI
 
 if __name__ == "__main__":

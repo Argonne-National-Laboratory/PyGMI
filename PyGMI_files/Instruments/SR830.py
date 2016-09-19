@@ -3,11 +3,11 @@ import visa
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB::17"):
-        self.io = visa.instrument(VISA_address)
+        self.io = visa.ResourceManager().open_resource(VISA_address)
         #The OUTX command sets the output interface to RS232 (i=0) or GPIB (i=1)
         if VISA_address.count("GPIB"):
             self.io.write("OUTX 1")
-        print self.io.ask("*IDN?")
+        print self.io.query("*IDN?")
 
         self.sensitivity_dict={'2 nV/fA':0,'50 μV/pA':13,
                      '5 nV/fA':1,'100 μV/pA':14,
@@ -50,7 +50,7 @@ class Connect_Instrument():
         return 1      
         
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
 
     #def set_harmonic(self,i=1):
         #"""set the i-th harmonic to measure"""
@@ -78,7 +78,7 @@ class Connect_Instrument():
         
     def query_ref_mode(self):
         """returns 1 (internal) or 0 (external)"""
-        return int(self.io.ask("FMOD?"))
+        return int(self.io.query("FMOD?"))
         
     def set_AUX1(self,value):
         if type(value)==float:
@@ -87,7 +87,7 @@ class Connect_Instrument():
             raise TypeError
 
     def query_AUX1_out(self):
-        return float(self.io.ask('AUXV?1'))
+        return float(self.io.query('AUXV?1'))
 
 
     def set_frequency(self,f):
@@ -96,7 +96,7 @@ class Connect_Instrument():
 
     def query_frequency(self):
         """query the reference frequency"""
-        return float(self.io.ask("FREQ?"))
+        return float(self.io.query("FREQ?"))
 
     def set_amplitude(self,value):
         if type(value)==float:
@@ -105,10 +105,10 @@ class Connect_Instrument():
             raise TypeError
 
     def query_amplitude(self):
-        return float(self.io.ask('SLVL?'))
+        return float(self.io.query('SLVL?'))
         
     def query_phase(self):
-        return float(self.io.ask('PHAS?'))
+        return float(self.io.query('PHAS?'))
     
     def set_phase(self,value):
         if value>=-360.0 and value <=729.99:
@@ -132,19 +132,19 @@ class Connect_Instrument():
         #NB: HARM1 is the fundamental, HARM2 is the 2f harmonic
 
     def query_sensitivity(self):
-        return int(self.io.ask("SENS?"))
+        return int(self.io.query("SENS?"))
     
     def set_sensitivity(self,value=12):
         self.io.write('SENS'+str(value))
     
     def query_time_cste(self):
-        return int(self.io.ask("OFLT?"))
+        return int(self.io.query("OFLT?"))
     
     def set_time_cste(self,value=10):
         self.io.write('OFLT'+str(value))
         
     def query_filter_slop(self):
-        return int(self.io.ask("OFSL?"))     
+        return int(self.io.query("OFSL?"))     
 
     def set_filter_slop(self,value=3):
         self.io.write('OFSL'+str(value))

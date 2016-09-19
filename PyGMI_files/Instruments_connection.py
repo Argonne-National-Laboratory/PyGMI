@@ -1,5 +1,4 @@
-from PySide.QtGui import QWidget,QMainWindow,QApplication,QFileDialog,QTableWidgetItem
-from PySide.QtCore import QTimer
+from PyQt4.QtGui import QWidget,QApplication,QFileDialog,QTableWidgetItem
 import Instruments_connection_Ui
 import os,re,visa
 import Instruments
@@ -16,13 +15,14 @@ else:
     #Get the module directory name from __file__
     #which contains the absolute path of the file
     #being executed
-    rep_module=__file__[:__file__.rindex(os.sep)]+os.sep 
+    rep_module=os.path.dirname(__file__)+os.sep 
 
 #find all the comboboxes of the user interface that are used to choose the instrument type.
 #For that, the combobox must have a name that matches the regular expression below
 #which means the combobox must be named something like : some words without space + "_instrtype_" + optionnaly some number
 #e.g. "magnet_instrtype_1" or just "magnet_instrtype"
-INSTRTYPE_COMBOBOXES=re.findall(r'self\.\w+_instrtype(?:_\d+)?\.setObjectName\("(\w+_instrtype(?:_\d+)?)"\)',open(rep_module+'Instruments_connection_Ui.py').read(-1))
+#INSTRTYPE_COMBOBOXES=re.findall(r'self\.\w+_instrtype(?:_\d+)?\.setObjectName\("(\w+_instrtype(?:_\d+)?)"\)',open(rep_module+'Instruments_connection_Ui.py').read(-1))
+INSTRTYPE_COMBOBOXES=re.findall(r'self\.(\w+_instrtype(?:_\d+)?) = QtGui\.QComboBox\(Instruments_connection\)',open(rep_module+'Instruments_connection_Ui.py').read(-1))
 
 class Instruments_connection(QWidget):
     def __init__(self,parent=None,title='Instruments Connection',debug=False):
@@ -54,6 +54,7 @@ class Instruments_connection(QWidget):
 
     def list_of_all_comboboxes(self):
         f=self.ui
+#        print 'INSTRTYPE_COMBOBOXES',INSTRTYPE_COMBOBOXES
         return [eval("f."+combobox_name+".objectName()") for combobox_name in INSTRTYPE_COMBOBOXES]
         
     def list_of_all_checkboxes_pointer(self):
@@ -99,16 +100,16 @@ class Instruments_connection(QWidget):
                                                            
     def refresh_instr_list(self):
         with self.reserved_access_to_instr:
-            l=visa.get_instruments_list()
+            l=visa.ResourceManager().list_resources()
         self.ui.instr_table.setRowCount(len(l))
         for i in range(len(l)):
             if not('ASRL' in l[i] or 'COM' in l[i]):#COM ports don't respond to visa *IDN?, which raises an error, so don't ask them
                 with self.reserved_access_to_instr:
                     try:
-                        a=visa.instrument(l[i])
-                        a.timeout=1.5
-                        self.ui.instr_table.setItem(i,0,QTableWidgetItem(a.ask('*IDN?')))
-                        a.timeout=5
+                        a=visa.ResourceManager().open_resource(l[i])
+                        a.timeout=1500
+                        self.ui.instr_table.setItem(i,0,QTableWidgetItem(a.query('*IDN?')))
+                        a.timeout=5000
                     except:
                         self.ui.instr_table.setItem(i,0,QTableWidgetItem('Instruments did not respond to *IDN?'))
             self.ui.instr_table.setItem(i,1,QTableWidgetItem(l[i]))
@@ -116,10 +117,13 @@ class Instruments_connection(QWidget):
     def saveInstrconf(self,fileName=None):
         if fileName==None:
             #the static method calls the native file system
-            fileName = QFileDialog.getSaveFileName(self,"Save Configuration",dir= "./Configuration/Instruments",filter="Config file (*.cfg)")
+            fileName = QFileDialog.getSaveFileName(self,"Save Configuration",directory = "./Configuration/Instruments",filter="Config file (*.cfg)")
+            print fileName
+            #PySide only
             #WARNING: write() and open() do not work with 'unicode' type object
             #they have to be converted to a string first (that is a list of bytes)
-            fileName=fileName[0].encode('utf8')
+#            fileName=fileName[0].encode('utf8')
+            print fileName
         if fileName!="":
             savefile=open(fileName,'w')
             f=self.ui
@@ -135,9 +139,10 @@ class Instruments_connection(QWidget):
         
     def loadInstrconf(self,fileName=None):
         if fileName==None:
-            fileName = QFileDialog.getOpenFileName(self,"Load Configuration",dir= "./Configuration/Instruments",filter="Config file (*.cfg)")
+            fileName = QFileDialog.getOpenFileName(self,"Load Configuration",directory= "./Configuration/Instruments",filter="Config file (*.cfg)")
+            #PySide only
             #open() does not work with 'unicode' type object, conversion is needed
-            fileName=fileName[0].encode('utf8')
+#            fileName=fileName[0].encode('utf8')
         if fileName!="":
             file_opened=open(fileName,'r')
             lines=file_opened.readlines()
@@ -169,22 +174,22 @@ class Instruments_connection(QWidget):
 
     def write2inst(self):
         address = self.ui.testinst.text()
-        io = visa.instrument(address)
+        io = visa.ResourceManager().open_resource(address)
         command = self.ui.testcommand.text()
         with self.reserved_access_to_instr:
             io.write(command)
         
     def ask2inst(self):
         address = self.ui.testinst.text()
-        io = visa.instrument(address)
+        io = visa.ResourceManager().open_resource(address)
         command = self.ui.testcommand.text()
         with self.reserved_access_to_instr:
-            answer = io.ask(command)
+            answer = io.query(command)
         self.ui.testanswer.setPlainText(answer)
 
     def readinst(self):
         address = self.ui.testinst.text()
-        io = visa.instrument(address)
+        io = visa.ResourceManager().open_resource(address)
         with self.reserved_access_to_instr:
             answer = io.read_raw()
         self.ui.testanswer.setPlainText(answer)
@@ -193,8 +198,6 @@ class Instruments_connection(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    #a={}
     window = Instruments_connection(app,debug=True)
-    #window.loadconf()
     window.show()
     sys.exit(app.exec_())

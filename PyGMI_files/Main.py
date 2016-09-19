@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 #Libraries Imports
+#Time measurements
+import time
+#Multithreading
+import threading
+import Queue
 #User interface
-    ##PySide
-from PySide.QtGui import QMainWindow,QFileDialog
-from PySide.QtCore import QTimer,QObject,SIGNAL
+    ##PyQt4
+from PyQt4.QtGui import QMainWindow,QFileDialog
+from PyQt4.QtCore import QTimer,SIGNAL
     ##Main user interface
 import GUI_compiled
     ##Widgets that may be created as independent windows
@@ -15,17 +20,6 @@ from Frontpanel_values import Frontpanel_values
 import Measurements_programs
 for module in Measurements_programs.__all__:
     exec('import Measurements_programs.'+module)
-#Time measurement
-import time
-#Instruments communications
-import visa
-#Multithreading
-import threading
-import Queue
-#Plotting data
-import pyqtgraph as pg
-#File path management
-import os
 
 class start_GUI(QMainWindow):
     def __init__(self):
@@ -53,8 +47,15 @@ class start_GUI(QMainWindow):
         self.reserved_access_to_instr=threading.Lock()
         #initiate a flag to wait for a parameter to settle
         self.waiting=False
-        #initiate the list of available measurements program
+        #give the reference "self" (the main thread) to the Macro Editor
+        # and set-up its list of available measurements programs to run
+        self.ui.macro_UI.setupmain(self)
+        # initiate the list of available measurements program
+        # AND update the macro editor with the list of programs available
         self.update_list_of_meas_program()
+        # finish macro initialization
+        self.ui.macro_UI.setuptimer()
+
         #initialize a list that will retain a reference to the independent plot windows
         self.plotwindows=[]
         #give the reference "self" (the main thread) to the fixed plot windows
@@ -66,8 +67,7 @@ class start_GUI(QMainWindow):
         self.ui.instr_IO.parent=self
         self.ui.instr_IO.set_up_instr_access_lock(self.reserved_access_to_instr)
         self.ui.instr_IO.loaddefaultconfig()
-        #give the reference "self" (the main thread) to the Macro Editor
-        self.ui.macro_UI.main=self
+
         
         self.mainconf={}
         self.loaddefaultconfig()
@@ -82,6 +82,8 @@ class start_GUI(QMainWindow):
     def update_list_of_meas_program(self):
         """update the list of available measurements program and recompile them"""
         self.meas_thread_list=[]
+        # used for Macro_editor so that the command that start programs, knows which are available
+        self.meas_prog_list_byname = []
         self.ui.measMode.clear()
         already_imported=Measurements_programs.__all__
         reload(Measurements_programs)
@@ -93,6 +95,9 @@ class start_GUI(QMainWindow):
             exec('Meas_script=Measurements_programs.'+module+'.Script')
             self.meas_thread_list.append(Meas_script)
             self.ui.measMode.addItem(module)
+            self.meas_prog_list_byname.append(module)
+        # update the macro editor with the new list of available programs to run
+        self.ui.macro_UI.update_commands(self.meas_prog_list_byname)
         print "List of Programs Updated" 
 
     def create_new_plotwidget(self):
@@ -221,7 +226,7 @@ class start_GUI(QMainWindow):
         self.ui.pushButton.setText("Start\nMeasurements")
    
     def savefile_txt_input_open(self):
-        fileName = QFileDialog.getSaveFileName(self,"Savefile",dir= "./measurements data")
+        fileName = QFileDialog.getSaveFileName(self,"Savefile",directory= "./measurements data")
         #if the user chooses 'Cancel' in the dialog, a unicode empty string is returned
-        if not(fileName[0]==u''):
-            self.ui.savefile_txt_input.setText(fileName[0])
+#        if not(fileName[0]==u''):
+        self.ui.savefile_txt_input.setText(fileName)
