@@ -41,21 +41,17 @@ class Instruments_connection(QWidget):
         self.connected_instr={}
         self.load_Instr_drivers_list()
         
-        #if not(debug):self.loadInstrconf("./Configuration/Instruments/CurrentInstruments.cfg")
-
     def set_up_instr_access_lock(self,lock):
         self.reserved_access_to_instr=lock
         
     def load_Instr_drivers_list(self):
         f=self.ui
-        for instr_cbb in self.list_of_all_comboboxes():
+        for instr_cbb in INSTRTYPE_COMBOBOXES:
             cbb=eval("f."+instr_cbb)
             cbb.addItems(Instruments.__all__)
 
     def list_of_all_comboboxes(self):
-        f=self.ui
-#        print 'INSTRTYPE_COMBOBOXES',INSTRTYPE_COMBOBOXES
-        return [eval("f."+combobox_name+".objectName()") for combobox_name in INSTRTYPE_COMBOBOXES]
+        return INSTRTYPE_COMBOBOXES
         
     def list_of_all_checkboxes_pointer(self):
         f=self.ui
@@ -66,7 +62,7 @@ class Instruments_connection(QWidget):
         ccbb=[]
         for combobox_name in INSTRTYPE_COMBOBOXES:
             if eval("f."+combobox_name.replace("instrtype","on")+".isChecked()"):
-               ccbb.append(eval("f."+combobox_name+".objectName()"))
+                ccbb.append(combobox_name)
         return ccbb
         
     def init_instr(self):
@@ -83,7 +79,7 @@ class Instruments_connection(QWidget):
                 instr_type=cbb.currentText()
                 varname=instr.replace("_instrtype","")#instr_instrtype_1 -> instr_1 / magnet_Z_instrtype -> magnet_Z
                 self.shortcut_var.append(varname)
-                #For next upgrade : use less exec and give a dictionnary of connected instruments to be passed to the measurement programs
+                #TODO: use less exec and give a dictionnary of connected instruments to be passed to the measurement programs
                 #the macro mechanism will need to be updated too, as instruments won't reside in "main" anymore
                 #self.connected_instr[varname]=eval("self.Instruments."+instr_type+".Connect_Instrument('"+add+"'")
                 #self.connected_instr[varname].initialize()
@@ -127,7 +123,7 @@ class Instruments_connection(QWidget):
         if fileName!="":
             savefile=open(fileName,'w')
             f=self.ui
-            for instr in self.list_of_all_comboboxes():
+            for instr in INSTRTYPE_COMBOBOXES:
                 cbb=eval("f."+instr)#get the pointer to the combobox
                 add=eval("f."+instr.replace("instrtype","visa_address"))#get the pointer to the visa address box
                 chb=eval("f."+instr.replace("instrtype","on"))#get the pointer to the check box
