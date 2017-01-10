@@ -23,6 +23,7 @@ It should work with Anaconda/Spyder provided that you download one of the previo
 
 The previous Master branch was reverted to its original version and renamed "PySide branch" as it was found that some updates ended up introducing PyQt, thus mixing PySide and PyQt in the same program, and causing various bugs.
 
+
 2016/09/18 Major update
 Master branch was designed for the latest version of Python 2 and uses PySide
 New beta release (branch "v3-beta") was adapted to work with PyQt and so it should now work with Spyder (in the spyder console subwindow, select using the "console" tab, not the "IPython console" tab)
