@@ -455,7 +455,7 @@ class WaitForHPPMSStableCommand():
         if self.waiting==False:
             self.waiting=True
             self.waiting_start=time.clock()
-        if 'Stable' in status and abs(H-float(values[2]))<abs(float(values[2])*0.05):
+        if 'Stable' in status and (abs(H-float(values[2]))<abs(float(values[2])*0.05) or abs(H-float(values[2]))<1.0):
             #Field is stable, go to next line of macro
             self.waiting=False
             self.next_move=1

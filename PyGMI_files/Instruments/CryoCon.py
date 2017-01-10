@@ -3,8 +3,8 @@ import visa
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB::12"):
-        self.io = visa.instrument(VISA_address)
-        print self.io.ask("*IDN?")
+        self.io = visa.ResourceManager().open_resource(VISA_address)
+        print self.io.query("*IDN?")
         #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
         self.channels_names=[]
         for txt in ['A','B']:
@@ -19,19 +19,19 @@ class Connect_Instrument():
     def query_temp(self,channel):
         #reports the current temperature reading on any of the input channels
         #channel can be 0,1/CHA,CHB/A,B
-        return float(self.io.ask("INP? "+channel))
+        return float(self.io.query("INP? "+channel))
 
     def query_resistance(self,channel):
         #The INPUT:SENPR query reports the reading on a selected input channel. For diode
         #and thermocouple sensors, the reading is in Volts while resistor sensors are reported in Ohms
         #The reading is not filtered by the display time-constant filter. However, the
         #synchronous input filter has been applied.
-        return float(self.io.ask('INP '+channel+':SENPR?'))
+        return float(self.io.query('INP '+channel+':SENPR?'))
 
     def query_temp_unit(self,channel):
         #the display units indicator will be K, C, F, V for Volts or O for Ohms
         if channel in ['0','1','CHA','CHB','A','B']:
-            return self.io.ask("INP "+channel+":UNIT?")
+            return self.io.query("INP "+channel+":UNIT?")
         else:
             raise ValueError
 
@@ -42,7 +42,7 @@ class Connect_Instrument():
             raise ValueError
 
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
     
     def clear_status(self):
         self.io.write('*cls')
@@ -60,7 +60,7 @@ class Connect_Instrument():
         
     def is_engaged(self):
         #query status of the loops
-        return self.io.ask('CONT?')
+        return self.io.query('CONT?')
         #the command 'SYST:LOOP?' seems to do exactly the same 
         
     def set_remote_mode(self):
@@ -73,7 +73,7 @@ class Connect_Instrument():
 
     def is_locked(self):
         #query the status of the lock of the front panel keypad
-        return self.io.ask('SYST:LOCK?')
+        return self.io.query('SYST:LOCK?')
 
     def save_config(self):
         #This saves the entire instrument configuration to flash
@@ -84,7 +84,7 @@ class Connect_Instrument():
         self.io.write('SYST:BEEP '+str(int(duration)))
         
     def query_disp_TC(self):
-        return self.io.ask('SYST:DIST?')
+        return self.io.query('SYST:DIST?')
 
     def set_disp_TC(self,tc):
         #<tc> is the display filter time constant, in seconds, selected from the
@@ -102,7 +102,7 @@ class Connect_Instrument():
     def query_internal_temperature(self):
         #The Model 32 incorporates a temperature sensor into it's internal voltage
         #reference. This temperature is essentially the internal temperature of the instrument
-        return self.io.ask('SYST:AMB?')
+        return self.io.query('SYST:AMB?')
         
         
         

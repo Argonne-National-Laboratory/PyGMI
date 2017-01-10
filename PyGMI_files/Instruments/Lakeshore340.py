@@ -3,7 +3,7 @@ import visa
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::12"):
-        self.io = visa.instrument(VISA_address)
+        self.io = visa.ResourceManager().open_resource(VISA_address)
         print self.query_unit_Id()
         #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
         self.channels_names=[]
@@ -18,19 +18,19 @@ class Connect_Instrument():
         
 
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
 
     def query_temp(self,channel):
         #reports the current temperature reading on any of the input channels
         #channel can be A,B,C,D
-        return float(self.io.ask("KRDG? "+channel))
+        return float(self.io.query("KRDG? "+channel))
     
     def query_Status_Byte(self):
-        return bin(int(self.io.ask("*STB?")))[2:]
+        return bin(int(self.io.query("*STB?")))[2:]
     
     def query_status_enabled_byte(self):
         """Ramp Done,SRQ,ESB,Error,Alarm,Settle,New OPT,New A&B"""
-        return bin(int(self.io.ask("*SRE?")))[2:]
+        return bin(int(self.io.query("*SRE?")))[2:]
         
     def enable_status_byte_service_request(self,b):
         """If the Service Request is enabled, any of these bits being set causes the Model 340 to pull the SRQ management low to signal the BUS CONTROLLER"""
@@ -72,11 +72,11 @@ class Connect_Instrument():
         self.io.write("SETP "+str(loop)+', '+str(temperature))   
     
     def query_PID(self,loop):
-        return map(float,self.io.ask('PID? '+str(loop)).split(','))
+        return map(float,self.io.query('PID? '+str(loop)).split(','))
         
     def set_PID(self,loop,P,I,D):
         self.io.write('PID '+str(loop)+','+str(P)+','+str(I)+','+str(D))
     
     def query_setpoint(self,loop=1):
-        return self.io.ask("SETP? "+str(loop))
+        return self.io.query("SETP? "+str(loop))
     

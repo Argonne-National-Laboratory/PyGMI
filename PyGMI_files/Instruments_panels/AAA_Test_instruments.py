@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PySide.QtGui import QWidget
+from PyQt4.QtGui import QWidget
 import AAA_Test_instruments_Ui
 
 class Panel(QWidget):

@@ -64,7 +64,7 @@ def retry(tries=2,wait=1):
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::22"):
-        self.io = visa.instrument(VISA_address)
+        self.io = visa.ResourceManager().open_resource(VISA_address)
         print self.query_unit_Id()
         self.last_known_field_value_in_T=0.0
         print "last known persistent field value in magnet",self.last_known_field_value_in_T,"T"
@@ -73,7 +73,7 @@ class Connect_Instrument():
         return 1    
 
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
     
 #PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
     def pause(self):
@@ -132,25 +132,25 @@ class Connect_Instrument():
     @retry_with(tries=5,ans_type=str,default_ans='COM error',wait=15)
     def query_field_unit(self):
         conversion={'0':'kilogauss','1':'Tesla'}
-        return conversion[self.io.ask('field:units?')]
+        return conversion[self.io.query('field:units?')]
     
     @retry_with(tries=5,ans_type=str,default_ans='COM error',wait=15)
     def query_persistent_switch_state(self):
         conversion={'0':'OFF','1':'ON'}
-        return conversion[self.io.ask('ps?')]
+        return conversion[self.io.query('ps?')]
     
     @retry_with(tries=5,ans_type=float,default_ans=-1.0,wait=15)
     def query_programmed_field(self):
-        return float(self.io.ask('field:prog?'))
+        return float(self.io.query('field:prog?'))
     
     @retry_with(tries=5,ans_type=float,default_ans=-1.0,wait=15)
     def query_ramp_rate(self):
-        return float(self.io.ask('RAMP:RATE:FIELD?'))
+        return float(self.io.query('RAMP:RATE:FIELD?'))
 
     @retry_with(tries=5,ans_type=str,default_ans='COM error',wait=15)        
     def query_ramp_rate_unit(self):
         conversion={'0':'second','1':'minute'}
-        return self.query_field_unit()+'/'+conversion[self.io.ask('RAMP:RATE:UNITS?')]
+        return self.query_field_unit()+'/'+conversion[self.io.query('RAMP:RATE:UNITS?')]
 
     @retry_with(tries=5,ans_type=str,default_ans='COM error',wait=15)
     def query_status(self):
@@ -163,7 +163,7 @@ class Connect_Instrument():
                     'Quench detected',
                     'Heating persistent switch',
                     'AT ZERO current']
-        return conversion[int(self.io.ask("STATE?"))-1]
+        return conversion[int(self.io.query("STATE?"))-1]
     
 #RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     @retry(tries=5,wait=15)

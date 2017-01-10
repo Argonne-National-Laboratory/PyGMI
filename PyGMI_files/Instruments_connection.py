@@ -40,7 +40,7 @@ class Instruments_connection(QWidget):
         self.parent=parent
         self.connected_instr={}
         self.load_Instr_drivers_list()
-        
+                
     def set_up_instr_access_lock(self,lock):
         self.reserved_access_to_instr=lock
         

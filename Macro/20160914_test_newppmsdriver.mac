@@ -1,0 +1,6 @@
+Set Save file to measurements data/ppmsdummyovernight2.txt
+Start ppms_dummy()
+Wait 5 secs
+Set PPMS Temperature to 2 K @ 0.5 K/min FastSettle
+Set PPMS Field to 100 Oe @ 1 Oe/s Linear Persistent
+Wait for measurements completion

@@ -52,7 +52,7 @@ def retry(tries=2,wait=1):
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::1"):
         #part to be run at instrument initialization, the following commands are mandatory
-        self.io = visa.instrument(VISA_address)
+        self.io = visa.ResourceManager().open_resource(VISA_address)
         self.VISA_address=VISA_address
         print self.query_unit_Id()
 
@@ -60,7 +60,7 @@ class Connect_Instrument():
     #return instrument identification. This command is common to almost all GPIB instruments. Modify if necessary.
     def query_unit_Id(self):
         return"AMI135 LHe meter does not implement *IDN?"
-        #return self.io.ask("*IDN?") 
+        #return self.io.query("*IDN?") 
 
     #mandatory function that will be called just after the computer successfully connected to the instrument.
     #If you don't need it, just leave it empty but do leave the command "return 1"

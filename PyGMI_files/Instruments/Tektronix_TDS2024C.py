@@ -5,7 +5,7 @@ import numpy as np
 
 class Connect_Instrument():
     def __init__(self,VISA_address='USB0::0x0699::0x03A6::c019476::0', factory_settings=True):
-        self.io = visa.instrument(VISA_address)
+        self.io = visa.ResourceManager().open_resource(VISA_address)
         self.my_instr_name='Tektronix_TDS2024C'
         if factory_settings:        
             #start from a known state (there are so many options to check otherwise)
@@ -20,7 +20,7 @@ class Connect_Instrument():
             print "Instrument "+self.my_instr_name+" at visa address: "+VISA_address+", did not answer to identification request"
 
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
 
     def trigger_coupling(self,t):
         if t in ['AC','DC','HFRej','LFRej','NOISErej']:
@@ -49,7 +49,7 @@ class Connect_Instrument():
         if channel!=None:
             self.measuring_channel(channel)
         def my_stripper(cmd):
-            txt=self.io.ask(cmd)
+            txt=self.io.query(cmd)
             return float(txt[txt.index(' ')+1:])
         Xincr=my_stripper('WFMPre:XINcr?')
         
@@ -57,7 +57,7 @@ class Connect_Instrument():
         YOFF_in_dl=my_stripper('WFMPre:YOFf?')
         YZERO_in_YUNits=my_stripper('WFMPre:YZEro?')
 
-        txt=self.io.ask('CURVE?')
+        txt=self.io.query('CURVE?')
         #datapoints in digitizer levels
         curve_in_dl=np.array(map(float,txt[txt.index(' ')+1:].split(',')))
         #conversion of the data to something meaningful (in Yunits: Volts or dB)

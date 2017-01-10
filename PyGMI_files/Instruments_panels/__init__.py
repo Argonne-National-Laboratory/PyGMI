@@ -12,12 +12,12 @@ else:
     #Get the module directory name from __file__
     #which contains the absolute path of the file
     #being executed
-    module_folder=__file__[:__file__.rindex(os.sep)]+os.sep        
+    module_folder=os.path.dirname(__file__)+os.sep        
 
 #Make a list of all the Instrument panels in the folder
 __all__=[]
 
-import pysideuic
+import PyQt4.uic
 
 def compile_if_necessary(input_ui_file,output_py_file):
     #prepare the file names
@@ -30,7 +30,7 @@ def compile_if_necessary(input_ui_file,output_py_file):
     if not(os.path.isfile(output_path)) or os.path.getmtime(input_path)>os.path.getmtime(output_path):
         print "update detected: recompiling "+input_ui_file
         f=open(output_path,"w")
-        pysideuic.compileUi(input_path,f)
+        PyQt4.uic.compileUi(input_path,f)
         f.close()    
 
 for my_file in os.listdir(module_folder):

@@ -4,11 +4,11 @@ import time
 
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::17"):
-        self.io = visa.instrument(VISA_address)
-        print self.io.ask("*IDN?")
+        self.io = visa.ResourceManager().open_resource(VISA_address)
+        print self.io.query("*IDN?")
 
     def query_unit_Id(self):
-        return self.io.ask("*IDN?")
+        return self.io.query("*IDN?")
         
     def initialize(self):
         """commands executed when the instrument is initialized"""
@@ -195,4 +195,4 @@ class Connect_Instrument():
         self.io.write(':SENS:VOLT:NPLC '+str(NPLC))
         
     def query_voltage(self):
-        return float(self.io.ask(":READ?"))
+        return float(self.io.query(":READ?"))
