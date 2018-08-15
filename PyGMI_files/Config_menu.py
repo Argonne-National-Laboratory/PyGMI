@@ -1,6 +1,7 @@
-from PyQt4.QtGui import QDialog,QApplication,QColorDialog,QFileDialog,QColor
+from PyQt5.QtWidgets import QDialog,QApplication,QColorDialog,QFileDialog
+from PyQt5.QtGui import QColor
 
-import Config_menu_Ui
+from . import Config_menu_Ui
 
 class Config_menu(QDialog):
     def __init__(self,parent=None,title='Configuration menu',config_dict={},debug=False):
@@ -18,19 +19,20 @@ class Config_menu(QDialog):
         self.setWindowTitle(title)
         self.parent=parent
         self.config_dict=config_dict
-        if not(debug):self.loadconf("./Configuration/Parameters/CurrentParameters.cfg")
+        if not(debug):self.loadconf(fileName="./Configuration/Parameters/CurrentParameters.cfg")
 
     def update_values(self):
-        self.config_dict['macfold']=self.ui.macfold.text().encode('utf8')
-        self.config_dict['measfold']=self.ui.measfold.text().encode('utf8')
-        self.config_dict['smtpadd']=self.ui.smtpadd.text().encode('utf8')
-        self.config_dict['login']=self.ui.login.text().encode('utf8')
-        self.config_dict['mdp']=self.ui.mdp.text().encode('utf8')
-        self.config_dict['linecolor']=self.linecolor
-        self.config_dict['pointcolor']=self.pointcolor
-        self.config_dict['pointsize']=self.ui.pointsize.value()
-        self.config_dict['smtpport']=self.ui.smtpport.value()
-        self.saveconf("./Configuration/Parameters/CurrentParameters.cfg")
+        self.config_dict['macfold'] = self.ui.macfold.text()
+        self.config_dict['measfold'] = self.ui.measfold.text()
+        self.config_dict['smtpadd'] = self.ui.smtpadd.text()
+        self.config_dict['login'] = self.ui.login.text()
+        self.config_dict['mdp'] = self.ui.mdp.text()
+        self.config_dict['linecolor'] = self.linecolor
+        self.config_dict['pointcolor'] = self.pointcolor
+        self.config_dict['pointsize'] = self.ui.pointsize.value()
+        self.config_dict['smtpport'] = self.ui.smtpport.value()
+        self.config_dict['indep_panels'] =  self.ui.indep_panels.isChecked()
+        self.saveconf(fileName="./Configuration/Parameters/CurrentParameters.cfg")
         self.parent.fixed_plot_conf()
         self.accept()
         
@@ -47,32 +49,27 @@ class Config_menu(QDialog):
         if color.isValid():
             self.pointcolor=color
 
-    def saveconf(self,fileName=None):
+    def saveconf(self,checked=False,fileName=None):
         if fileName==None:
             #the static method calls the native file system
-            fileName = QFileDialog.getSaveFileName(self,caption="Save Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
-            #WARNING: write() and open() do not work with 'unicode' type object
-            #they have to be converted to a string first (that is a list of bytes)
-            #problem solved in PyQt but not in PySide
-            #fileName=fileName[0].encode('utf8')
+            fileName, _ = QFileDialog.getSaveFileName(self,caption="Save Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
         if fileName!="":
             savefile=open(fileName,'w')
-            savefile.write(self.ui.macfold.text().encode('utf8')+"\n")
-            savefile.write(self.ui.measfold.text().encode('utf8')+"\n")
-            savefile.write(self.ui.smtpadd.text().encode('utf8')+"\n")
-            savefile.write(self.ui.login.text().encode('utf8')+"\n")
-            savefile.write(self.ui.mdp.text().encode('utf8')+"\n")
+            savefile.write(self.ui.macfold.text()+"\n")
+            savefile.write(self.ui.measfold.text()+"\n")
+            savefile.write(self.ui.smtpadd.text()+"\n")
+            savefile.write(self.ui.login.text()+"\n")
+            savefile.write(self.ui.mdp.text()+"\n")
             savefile.write(str(self.linecolor.rgba())+"\n")
             savefile.write(str(self.pointcolor.rgba())+"\n")
             savefile.write(str(self.ui.pointsize.value())+"\n")
             savefile.write(str(self.ui.smtpport.value())+"\n")
+            savefile.write(str(self.ui.indep_panels.isChecked())+"\n")
             savefile.close()
         
-    def loadconf(self,fileName=None):
+    def loadconf(self,checked=False,fileName=None):
         if fileName==None:
-            fileName = QFileDialog.getOpenFileName(self,caption="Load Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
-            #open() does not work with 'unicode' type object, conversion is needed
-            fileName=fileName[0].encode('utf8')
+            fileName, _ = QFileDialog.getOpenFileName(self,caption="Load Configuration",directory= "./Configuration/Parameters",filter="Config file (*.cfg)")
         if fileName!="":
             file_opened=open(fileName,'r')
             self.ui.macfold.setText(file_opened.readline()[:-1])
@@ -84,7 +81,8 @@ class Config_menu(QDialog):
             self.pointcolor=QColor.fromRgba(int(file_opened.readline()[:-1]))
             self.ui.pointsize.setValue(int(file_opened.readline()))
             self.ui.smtpport.setValue(int(file_opened.readline()))
-            file_opened.close()       
+            self.ui.indep_panels.setChecked("True" in file_opened.readline())
+            file_opened.close()
 
 
 if __name__ == "__main__":
@@ -94,7 +92,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     a={}
     window = Config_menu(app,config_dict=a,debug=True)
-    window.loadconf("../Configuration/Parameters/Parameters.cfg")
+    window.loadconf(fileName="../Configuration/Parameters/Parameters.cfg")
     window.show()
     #window.update_values()
     sys.exit(app.exec_())
