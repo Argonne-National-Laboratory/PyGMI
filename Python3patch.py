@@ -59,25 +59,24 @@ for root, dirs, files in os.walk(rep):
     for myfile in files:
         needupdate = False
         if myfile[-3:] == '.py' and 'patch' not in myfile:
-            f = open(root+os.sep+myfile,'r')
-            txt = f.readlines()
-            print(">>> Checking ", myfile)
-            for i, line in enumerate(txt):
-                for key in list(replacements.keys()):
-                    if key in line:
-                        newline = line.replace(key,replacements[key])
-                        if ischangeOK(line,newline):
-                            print("line",i,"updated")
-                            if bypass:print(line, '>', newline)
-                            line = newline
-                            needupdate = True
+            with open(root+os.sep+myfile,'r',encoding='utf-8') as f:
+                txt = f.readlines()
+                print(">>> Checking ", myfile)
+                for i, line in enumerate(txt):
+                    for key in list(replacements.keys()):
+                        if key in line:
+                            newline = line.replace(key,replacements[key])
+                            if ischangeOK(line,newline):
+                                print("line",i,"updated")
+                                if bypass:print(line, '>', newline)
+                                line = newline
+                                needupdate = True
 
-                txt[i] = line
-            f.close()
+                    txt[i] = line
+
             if needupdate:
-                f = open(root+os.sep+myfile,'w')
-                f.write("".join(txt))
-                f.close()
+                with open(root+os.sep+myfile, encoding='utf-8', mode="w") as f:
+                    f.write("".join(txt))
                 print(">>>>>> successfully patched",myfile)
                 print("")
             else:

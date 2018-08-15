@@ -37,34 +37,33 @@ for root,dirs,files in os.walk(rep):
     for myfile in files:
         needupdate = False
         if myfile[-3:]=='.py' and 'pyvisaup1p5patch' not in myfile:
-            f = open(root+os.sep+myfile,'r')
-            txt = f.readlines()
-            for i,line in enumerate(txt):
-                if "visa.instrument(" in line:
-                    line = line.replace("visa.instrument(","visa.ResourceManager().open_resource(")
-                    print(myfile,"line",i,"visa.instrument(")
-                    needupdate = True
-                if ".ask(" in line:
-                    line = line.replace(".ask(",".query(")
-                    print(myfile,"line",i,".ask(")
-                    needupdate = True
-                if ".term_chars" in line:
-                    line = line.replace(".term_chars",".read_termination")
-                    print(myfile,"line",i,".term_chars")
-                    needupdate = True
-                if "timeout" in line:
-                    print("WARNING: 'timeout' detected in",myfile)
-                    print("timeout must be in milliseconds for PyVisa > 1.5")
-                    print(line)
-                if 'visa.get_instruments_list()' in line:
-                    line = line.replace('visa.get_instruments_list()','visa.ResourceManager().list_resources()')
-                    print(myfile,"line",i,'.get_instruments_list()')
-                    needupdate = True
-                txt[i] = line
-            f.close()
+            with open(root+os.sep+myfile,'r',encoding='utf-8') as f:
+                txt = f.readlines()
+                for i,line in enumerate(txt):
+                    if "visa.instrument(" in line:
+                        line = line.replace("visa.instrument(","visa.ResourceManager().open_resource(")
+                        print(myfile,"line",i,"visa.instrument(")
+                        needupdate = True
+                    if ".ask(" in line:
+                        line = line.replace(".ask(",".query(")
+                        print(myfile,"line",i,".ask(")
+                        needupdate = True
+                    if ".term_chars" in line:
+                        line = line.replace(".term_chars",".read_termination")
+                        print(myfile,"line",i,".term_chars")
+                        needupdate = True
+                    if "timeout" in line:
+                        print("WARNING: 'timeout' detected in",myfile)
+                        print("timeout must be in milliseconds for PyVisa > 1.5")
+                        print(line)
+                    if 'visa.get_instruments_list()' in line:
+                        line = line.replace('visa.get_instruments_list()','visa.ResourceManager().list_resources()')
+                        print(myfile,"line",i,'.get_instruments_list()')
+                        needupdate = True
+                    txt[i] = line
+
             if needupdate:
-                f = open(root+os.sep+myfile,'w')
-                f.write("".join(txt))
-                f.close()
+                with open(root+os.sep+myfile, encoding='utf-8', mode="w") as f:
+                    f.write("".join(txt))
                 print(">>> successfully patched",myfile)
                 print("")

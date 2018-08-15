@@ -39,20 +39,20 @@ counter = 0
 for root, dirs, files in os.walk(rep):
     for myfile in files:
         if myfile[-3:] == '.py' and 'pathcorrectionpatch' not in myfile:
-            f = open(root+os.sep+myfile,'r')
-            txt = f.readlines()
-            for i, line in enumerate(txt):
-                if "__file__[:__file__.rindex(os.sep)]" in line:
-                    print(root)
-                    print(myfile,"line",i)
-                    print('original:',line)
-                    counter += 1
-                    line = line.replace("__file__[:__file__.rindex(os.sep)]",
-                                                  "os.path.dirname(__file__)")
-                    txt[i] = line
-                    print('patched:',line)
-            f.close()
-            f = open(root+os.sep+myfile,'w')
-            f.write("".join(txt))
-            f.close()
+            with open(root+os.sep+myfile,'r',encoding='utf-8') as f:
+                txt = f.readlines()
+                for i, line in enumerate(txt):
+                    if "__file__[:__file__.rindex(os.sep)]" in line:
+                        print(root)
+                        print(myfile,"line",i)
+                        print('original:',line)
+                        counter += 1
+                        line = line.replace("__file__[:__file__.rindex(os.sep)]",
+                                                      "os.path.dirname(__file__)")
+                        txt[i] = line
+                        print('patched:',line)
+
+            with open(root+os.sep+myfile, encoding='utf-8', mode="w") as f:
+                f.write("".join(txt))
+
 print('found',counter,'lines to correct')

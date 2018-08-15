@@ -118,9 +118,8 @@ for root, dirs, files in os.walk(rep):
                     txt[i] = line
 
             if needupdate:
-                f = open(root+os.sep+myfile,'w')
-                f.write("".join(txt))
-                f.close()
+                with open(root+os.sep+myfile, encoding='utf-8', mode="w") as f:
+                    f.write("".join(txt))
                 print(">>>>>> successfully patched",myfile)
                 print("")
             else:
