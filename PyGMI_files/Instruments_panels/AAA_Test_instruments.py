@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from PyQt4.QtGui import QWidget
-import AAA_Test_instruments_Ui
+from PyQt5.QtWidgets import QWidget
+from . import AAA_Test_instruments_Ui
 
 class Panel(QWidget):
     def __init__(self,parent=None,instr=None,lock=None,title='Instrument Panel'):
