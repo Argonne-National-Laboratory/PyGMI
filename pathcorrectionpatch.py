@@ -28,24 +28,31 @@
 
 import os
 
-rep = r'./PyGMI'
+"""
+walk through PyGMI folder to replace the sloppy solution based on __file__
+with one based on os.path module
+"""
+
+rep = os.getcwd()
+
 counter = 0
-for root,dirs,files in os.walk(rep):
+for root, dirs, files in os.walk(rep):
     for myfile in files:
-        if myfile[-3:]=='.py' and 'pathcorrectionpatch' not in myfile:
+        if myfile[-3:] == '.py' and 'pathcorrectionpatch' not in myfile:
             f = open(root+os.sep+myfile,'r')
             txt = f.readlines()
-            for i,line in enumerate(txt):
+            for i, line in enumerate(txt):
                 if "__file__[:__file__.rindex(os.sep)]" in line:
-                    print root
-                    print myfile,"line",i
-                    print 'original:',line
-                    counter+=1
-                    line = line.replace("__file__[:__file__.rindex(os.sep)]","os.path.dirname(__file__)")
+                    print(root)
+                    print(myfile,"line",i)
+                    print('original:',line)
+                    counter += 1
+                    line = line.replace("__file__[:__file__.rindex(os.sep)]",
+                                                  "os.path.dirname(__file__)")
                     txt[i] = line
-                    print 'patched:',line
+                    print('patched:',line)
             f.close()
             f = open(root+os.sep+myfile,'w')
             f.write("".join(txt))
             f.close()
-print 'found',counter,'lines to correct'
+print('found',counter,'lines to correct')
