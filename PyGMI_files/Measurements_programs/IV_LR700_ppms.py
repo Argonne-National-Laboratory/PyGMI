@@ -14,7 +14,7 @@ class Script(threading.Thread):
         self.data_queue=data_queue
         self.stop_flag=stop_flag
         self.Instr_bus_lock=Instr_bus_lock
-        
+
     def run(self):
         #this is the part that will be run in a separate thread
         #######################################################
@@ -27,34 +27,34 @@ class Script(threading.Thread):
         #SAVEFILE HEADER - add column names to this list in the same order as you will send the results of the measurements to the main thread
         #for example if header = ["Time (s)","I (A)","V (volt)"]
         #then you have to send the results of the measurements this way : "self.data_queue.put(([some time, some current, some voltage],False))"
-                
+
         header=['Time (s)','Time since Epoch']
         header+=["Temperature (K)"]
         header+=["H (Oe)"]
         header+=["R (Ohm)","X (Ohm)"]
         header+=["Excitation (V)","I (A)"]
 
-        
+
         #######################################################
         #ORIGIN OF TIME FOR THE EXPERIMENT
         start_time=time.clock()
         #######################################################
         #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
-        self.data_queue.put((header,True))
+        self.data_queue.put((header,'header'))
 
         #######################################################
         #INSTRUMENTS NAMES SHORTCUTS FOR EASIER READING OF THE CODE BELOW
         #I_source=instr.instr_8
 
-        
+
         ppms = instr.ppms
         LR700 = instr.instr_1
-        
+
         #Instruments set-up
         with reserved_bus_access:
             LR700.set_time_cste(10.0)
         #######################################################
-        #MAIN LOOP         
+        #MAIN LOOP
         for V in np.arange(f.current1,f.current2,f.current3):
             #Check if the main process is telling to stop
             if self.stop_flag.isSet():
@@ -81,12 +81,12 @@ class Script(threading.Thread):
                 last_data+=[Hexp]
                 last_data+=[R,X]
                 last_data+=[V,I]
-                
-                
+
+
                 #print last_data
                 #print map(type,last_data)
                 #######Send latest data to the main process for display and storage######
-                self.data_queue.put((last_data,False))
+                self.data_queue.put((last_data,'data'))
                 #######Wait mesure_delay secs before taking next measurements
                 time.sleep(f.mesure_delay)
-        
+

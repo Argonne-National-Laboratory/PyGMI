@@ -13,7 +13,7 @@ class Script(threading.Thread):
         self.data_queue=data_queue
         self.stop_flag=stop_flag
         self.Instr_bus_lock=Instr_bus_lock
-        
+
     def run(self):
         #this is the part that will be run in a separate thread
         #######################################################
@@ -34,11 +34,11 @@ class Script(threading.Thread):
             if eval("f.instr_on_"+str(i+1)):
                 voltmeter_is_on.append(i+1)
                 header+=["T sample "+str(i+1)+" (K)","Vp"+str(i+1),"Vm"+str(i+1),"(Vp"+str(i+1)+"-Vm"+str(i+1)+")/2","I "+str(i+1)+"(A)"]
-        
-                
+
+
         if f.instr_on_14:
             header+=["LHe level (%)"]
-            with reserved_bus_access:        
+            with reserved_bus_access:
                 instr.instr_14.set_unit_to_percent()
         #print header
 
@@ -47,7 +47,7 @@ class Script(threading.Thread):
         start_time=time.clock()
         #######################################################
         #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
-        self.data_queue.put((header,True))
+        self.data_queue.put((header,'header'))
 
         #######################################################
         #INSTRUMENTS NAMES SHORTCUTS FOR EASIER READING OF THE CODE BELOW
@@ -56,28 +56,28 @@ class Script(threading.Thread):
         active_voltmeters=[eval("instr.instr_"+str(i)) for i in voltmeter_is_on]
         temp_controller=instr.temp_controller
         temp_controllerVTI=instr.instr_9
-        
-        #Instruments set-up        
+
+        #Instruments set-up
         for voltmeter in active_voltmeters:
             with reserved_bus_access:
                 voltmeter.setup_single_shot()
                 voltmeter.set_integration_rate(f.mesure_speed)
-        
+
 
         #######################################################
-        #MAIN LOOP         
-        while True: #loop and measure indefinitely, until the main process tells to stop 
+        #MAIN LOOP
+        while True: #loop and measure indefinitely, until the main process tells to stop
             #Check if the main process is telling to stop
             if self.stop_flag.isSet():
                 break
             with reserved_bus_access:
                 #Measure T,H
                 T_VTI=temp_controllerVTI.query_temp('A')
-                
-            
 
 
-                            
+
+
+
             #repeat the measurements a number of times, given by 'repeat_points'
             #and calculate the average
             nb_active_V=len(active_voltmeters)
@@ -95,7 +95,7 @@ class Script(threading.Thread):
 
                 with reserved_bus_access:
                     T[i]+=temp_controller.query_temp('A')/2.0
-                    #2nd order scheme to correct for the thermoelectric effect 
+                    #2nd order scheme to correct for the thermoelectric effect
                     #+I
                     I_source.set_current_source_amplitude(I[i])
                     time.sleep(0.1)
@@ -115,7 +115,7 @@ class Script(threading.Thread):
                     #
                     T[i]+=temp_controller.query_temp('A')/2.0
                 V[i]=(Vp[i]-Vm[i])/2.0
-                
+
             if f.instr_on_14:
                 try:
                     with reserved_bus_access:
@@ -133,7 +133,7 @@ class Script(threading.Thread):
             #print last_data
             #print map(type,last_data)
             #######Send latest data to the main process for display and storage######
-            self.data_queue.put((last_data,False))
+            self.data_queue.put((last_data,'data'))
             #######Wait mesure_delay secs before taking next measurements
             time.sleep(f.mesure_delay)
-        
+
