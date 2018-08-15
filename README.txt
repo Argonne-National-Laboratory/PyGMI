@@ -16,6 +16,8 @@ Vm=voltmeter.query_voltage()
 
 Check out the documentation for more details !
 
+2018/08/14
+New branch to switch to python 3.6 and Qt5
 
 2017/01/09 
 v3-beta was promoted to Master branch and was designed for use with PyQt4 and Qt4.8, and Python 2.7
