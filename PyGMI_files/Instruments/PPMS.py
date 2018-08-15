@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon May 23 13:25:29 2016
-
-@author: 308791
-"""
 
 #!/usr/bin/env python
 #The ctypes library includes datatypes for passing data to DLLs
