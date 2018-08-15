@@ -11,11 +11,10 @@ class Connect_Instrument():
         self.visa=VISA_address
         self.status='PAUSED'
         self.stat_ct=0
-        #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
         self.channels_names=[]
         for txt in ['A','B','C','D']:
-            self.channels_names.append(unicode(txt,encoding='utf-8'))
-        print self.query_unit_Id()
+            self.channels_names.append(txt)
+        print(self.query_unit_Id())
 
     #def initialize(self,*args,**kwargs):
     def initialize(self,combobox=None):

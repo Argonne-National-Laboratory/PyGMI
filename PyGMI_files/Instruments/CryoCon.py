@@ -4,17 +4,18 @@ import visa
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB::12"):
         self.io = visa.ResourceManager().open_resource(VISA_address)
-        print self.io.query("*IDN?")
-        #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
+        print(self.io.query("*IDN?"))
+        #the encoding of the python script file is utf8 but the Qt interface
+        # is unicode, so conversion is needed
         self.channels_names=[]
         for txt in ['A','B']:
-            self.channels_names.append(unicode(txt,encoding='utf-8'))
+            self.channels_names.append(str(txt))
 
     def initialize(self,combobox=None):
         if combobox is not None:
             #update the combobox of the user interface with a list of all channels available for this Temp controller
             combobox.clear()
-            combobox.addItems(self.channels_names)      
+            combobox.addItems(self.channels_names)
 
     def query_temp(self,channel):
         #reports the current temperature reading on any of the input channels
@@ -22,10 +23,6 @@ class Connect_Instrument():
         return float(self.io.query("INP? "+channel))
 
     def query_resistance(self,channel):
-        #The INPUT:SENPR query reports the reading on a selected input channel. For diode
-        #and thermocouple sensors, the reading is in Volts while resistor sensors are reported in Ohms
-        #The reading is not filtered by the display time-constant filter. However, the
-        #synchronous input filter has been applied.
         return float(self.io.query('INP '+channel+':SENPR?'))
 
     def query_temp_unit(self,channel):
@@ -43,7 +40,7 @@ class Connect_Instrument():
 
     def query_unit_Id(self):
         return self.io.query("*IDN?")
-    
+
     def clear_status(self):
         self.io.write('*cls')
 
@@ -57,12 +54,12 @@ class Connect_Instrument():
     def engage(self):
         #engage control loops that are enabled
         self.io.write('CONT')
-        
+
     def is_engaged(self):
         #query status of the loops
         return self.io.query('CONT?')
-        #the command 'SYST:LOOP?' seems to do exactly the same 
-        
+        #the command 'SYST:LOOP?' seems to do exactly the same
+
     def set_remote_mode(self):
         #lock out the front panel keypad
         self.io.write('SYST:LOCK ON')
@@ -82,7 +79,7 @@ class Connect_Instrument():
 
     def beep(self,duration):
         self.io.write('SYST:BEEP '+str(int(duration)))
-        
+
     def query_disp_TC(self):
         return self.io.query('SYST:DIST?')
 
@@ -92,17 +89,12 @@ class Connect_Instrument():
         self.io.write('SYST:DIST'+str(tc))
 
     def reseed(self):
-        #The RESEED command inserts the current instantaneous temperature value
-        #into the filter history,thereby allowing it to settle rapidly.
-        #The RESEED command is very useful in systems where a computer is waiting
-        #for a reading to settle. Issuing the RESEED command will reduce the required
-        #settling time of the reading.
         self.io.write('SYS:RES')
 
     def query_internal_temperature(self):
         #The Model 32 incorporates a temperature sensor into it's internal voltage
         #reference. This temperature is essentially the internal temperature of the instrument
         return self.io.query('SYST:AMB?')
-        
-        
-        
+
+
+

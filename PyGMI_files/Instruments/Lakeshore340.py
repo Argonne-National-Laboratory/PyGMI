@@ -4,11 +4,10 @@ import visa
 class Connect_Instrument():
     def __init__(self,VISA_address="GPIB1::12"):
         self.io = visa.ResourceManager().open_resource(VISA_address)
-        print self.query_unit_Id()
-        #the encoding of the python script file is utf8 but the Qt interface is unicode, so conversion is needed
+        print(self.query_unit_Id())
         self.channels_names=[]
         for txt in ['A','B','C','D']:
-            self.channels_names.append(unicode(txt,encoding='utf-8'))
+            self.channels_names.append(str(txt))
 
     def initialize(self,combobox=None):
         if combobox is not None:
@@ -72,7 +71,7 @@ class Connect_Instrument():
         self.io.write("SETP "+str(loop)+', '+str(temperature))   
     
     def query_PID(self,loop):
-        return map(float,self.io.query('PID? '+str(loop)).split(','))
+        return list(map(float,self.io.query('PID? '+str(loop)).split(',')))
         
     def set_PID(self,loop,P,I,D):
         self.io.write('PID '+str(loop)+','+str(P)+','+str(I)+','+str(D))

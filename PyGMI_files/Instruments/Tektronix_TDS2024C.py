@@ -9,15 +9,15 @@ class Connect_Instrument():
         self.my_instr_name='Tektronix_TDS2024C'
         if factory_settings:        
             #start from a known state (there are so many options to check otherwise)
-            print "resetting "+self.my_instr_name+" to factory default configuration..."
+            print("resetting "+self.my_instr_name+" to factory default configuration...")
             self.io.write('FACTORY')
             time.sleep(10) #the reset takes a long time
         #binary encoding would be faster to transmit but require a little more work to decode the data
         self.io.write('data:encdg ascii') 
         try:
-            print self.query_unit_Id()
+            print(self.query_unit_Id())
         except:
-            print "Instrument "+self.my_instr_name+" at visa address: "+VISA_address+", did not answer to identification request"
+            print("Instrument "+self.my_instr_name+" at visa address: "+VISA_address+", did not answer to identification request")
 
     def query_unit_Id(self):
         return self.io.query("*IDN?")
@@ -59,7 +59,7 @@ class Connect_Instrument():
 
         txt=self.io.query('CURVE?')
         #datapoints in digitizer levels
-        curve_in_dl=np.array(map(float,txt[txt.index(' ')+1:].split(',')))
+        curve_in_dl=np.array(list(map(float,txt[txt.index(' ')+1:].split(','))))
         #conversion of the data to something meaningful (in Yunits: Volts or dB)
         value_in_YUNits = ((curve_in_dl - YOFF_in_dl) * YMUlt) + YZERO_in_YUNits
 
