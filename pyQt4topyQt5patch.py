@@ -79,44 +79,44 @@ for root, dirs, files in os.walk(rep):
     for myfile in files:
         needupdate = False
         if myfile[-3:] == '.py' and 'pyQt4topyQt5patch' not in myfile:
-            f = open(root+os.sep+myfile,'r')
-            txt = f.readlines()
-            print(">>> Checking ", myfile)
-            for i, line in enumerate(txt):
-                for key in list(replacements.keys()):
-                    if key in line:
-                        newline = line.replace(key,replacements[key])
-                        if ischangeOK(line,newline):
-                            print("line",i,"updated")
-                            if bypass:print(line, '>', newline)
-                            line = newline
-                            needupdate = True
+            with open(root+os.sep+myfile,'r',encoding='utf-8') as f:
+                txt = f.readlines()
+                print(">>> Checking ", myfile)
+                for i, line in enumerate(txt):
+                    for key in list(replacements.keys()):
+                        if key in line:
+                            newline = line.replace(key,replacements[key])
+                            if ischangeOK(line,newline):
+                                print("line",i,"updated")
+                                if bypass:print(line, '>', newline)
+                                line = newline
+                                needupdate = True
 
-                # logic to separate Qt classes according to their new import
-                match = importpattern.search(line)
-                if match is not None:
-                    class_list = match.group('classes').split(',')
-                    Qt5QtWidgetclasses = []
-                    Qt5QtGuiclasses = []
-                    for thisclass in class_list:
-                        if thisclass in Qt5QtWidget:
-                            Qt5QtWidgetclasses.append(thisclass)
-                        elif thisclass in Qt5QtGui:
-                            Qt5QtGuiclasses.append(thisclass)
-                        else:
-                            print("Error: unknown class")
-                    newline = ""
-                    if len(Qt5QtWidgetclasses)>0:
-                        newline+="from PyQt5.QtWidgets import "+",".join(Qt5QtWidgetclasses)+'\n'
-                    if len(Qt5QtGuiclasses)>0:
-                        newline+="from PyQt5.QtGui import "+",".join(Qt5QtGuiclasses)+'\n'
-                    if ischangeOK(line,newline):
-                            print("line",i,"updated")
-                            if bypass:print(line, '>', newline)
-                            line = newline
-                            needupdate = True
-                txt[i] = line
-            f.close()
+                    # logic to separate Qt classes according to their new import
+                    match = importpattern.search(line)
+                    if match is not None:
+                        class_list = match.group('classes').split(',')
+                        Qt5QtWidgetclasses = []
+                        Qt5QtGuiclasses = []
+                        for thisclass in class_list:
+                            if thisclass in Qt5QtWidget:
+                                Qt5QtWidgetclasses.append(thisclass)
+                            elif thisclass in Qt5QtGui:
+                                Qt5QtGuiclasses.append(thisclass)
+                            else:
+                                print("Error: unknown class")
+                        newline = ""
+                        if len(Qt5QtWidgetclasses)>0:
+                            newline+="from PyQt5.QtWidgets import "+",".join(Qt5QtWidgetclasses)+'\n'
+                        if len(Qt5QtGuiclasses)>0:
+                            newline+="from PyQt5.QtGui import "+",".join(Qt5QtGuiclasses)+'\n'
+                        if ischangeOK(line,newline):
+                                print("line",i,"updated")
+                                if bypass:print(line, '>', newline)
+                                line = newline
+                                needupdate = True
+                    txt[i] = line
+
             if needupdate:
                 f = open(root+os.sep+myfile,'w')
                 f.write("".join(txt))
@@ -134,25 +134,31 @@ def forcecompile(folder,input_ui_file,output_py_file):
     input_path = folder+os.sep+input_ui_file
     output_path = folder+os.sep+output_py_file
     #recompile the .ui Qt file
-    print("recompiling ", input_ui_file)
-    f = open(output_path,"w")
-    PyQt5.uic.compileUi(input_path,f)
-    f.close()
+    with open(output_path, encoding='utf-8', mode="w") as outf:
+        print("recompiling ", input_ui_file)
+        PyQt5.uic.compileUi(input_path, outf)
 
 mainfilesrep = rep+os.sep+'PyGMI_files'
-forcecompile(mainfilesrep,"Graphical_User_Interface.ui","GUI_compiled.py")
+forcecompile(mainfilesrep,"Graphical_User_Interface.ui",
+                          "Graphical_User_Interface_Ui.py")
 #Widget for a pyqtgraph PlotWidget with several control buttons
-forcecompile(mainfilesrep,"Plot2DDataWidget.ui","Plot2DDataWidget_Ui.py")
+forcecompile(mainfilesrep,"Plot2DDataWidget.ui",
+                          "Plot2DDataWidget_Ui.py")
 #Widget for a table with three columns and two buttons to add or remove lines
-forcecompile(mainfilesrep,"TableWith2Buttons.ui","TableWith2Buttons_Ui.py")
+forcecompile(mainfilesrep,"TableWith2Buttons.ui",
+                          "TableWith2Buttons_Ui.py")
 #Widget for a table with four columns and two buttons to add or remove lines
-forcecompile(mainfilesrep,"TableWith2Buttons4Col.ui","TableWith2Buttons4Col_Ui.py")
+forcecompile(mainfilesrep,"TableWith2Buttons4Col.ui",
+                          "TableWith2Buttons4Col_Ui.py")
 #Widget for the main configuration menu of PygMI
-forcecompile(mainfilesrep,"Config_menu.ui","Config_menu_Ui.py")
+forcecompile(mainfilesrep,"Config_menu.ui",
+                          "Config_menu_Ui.py")
 #Widget to set-up the connection to the instruments
-forcecompile(mainfilesrep,"Instruments_connection.ui","Instruments_connection_Ui.py")
+forcecompile(mainfilesrep,"Instruments_connection.ui",
+                          "Instruments_connection_Ui.py")
 #Widget which handles the macro
-forcecompile(mainfilesrep,"Macro_editor.ui","Macro_editor_Ui.py")
+forcecompile(mainfilesrep,"Macro_editor.ui",
+                          "Macro_editor_Ui.py")
 
 print("Force recompile all instruments panels GUI files")
 
