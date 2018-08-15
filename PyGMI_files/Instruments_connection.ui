@@ -437,7 +437,7 @@ color: rgb(255, 255, 255);</string>
       <number>6</number>
      </property>
      <item row="1" column="0">
-      <widget class="QCheckBox" name="ppms_on">
+      <widget class="QCheckBox" name="temp_controller_on">
        <property name="text">
         <string/>
        </property>
@@ -447,14 +447,14 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item row="1" column="1" colspan="2">
-      <widget class="QLineEdit" name="ppms_visa_address">
+      <widget class="QLineEdit" name="temp_controller_visa_address">
        <property name="text">
         <string>ID12_LS340_Temp_Controller</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QComboBox" name="ppms_instrtype"/>
+      <widget class="QComboBox" name="temp_controller_instrtype"/>
      </item>
      <item row="2" column="1" colspan="3">
       <widget class="QLabel" name="label_34">
@@ -540,29 +540,12 @@ color: rgb(255, 255, 255);</string>
      <item row="8" column="1">
       <widget class="QLabel" name="label_73">
        <property name="text">
-        <string>Instr14</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2" colspan="2">
-      <widget class="QLabel" name="label_74">
-       <property name="cursor">
-        <cursorShape>IBeamCursor</cursorShape>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(85, 170, 255);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>LHe Level</string>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        <string>PPMS</string>
        </property>
       </widget>
      </item>
      <item row="9" column="0">
-      <widget class="QCheckBox" name="instr_on_14">
+      <widget class="QCheckBox" name="ppms_on">
        <property name="text">
         <string/>
        </property>
@@ -572,14 +555,14 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item row="9" column="1" colspan="2">
-      <widget class="QLineEdit" name="instr_visa_address_14">
+      <widget class="QLineEdit" name="ppms_visa_address">
        <property name="text">
         <string>GPIB1::1</string>
        </property>
       </widget>
      </item>
      <item row="9" column="3">
-      <widget class="QComboBox" name="instr_instrtype_14"/>
+      <widget class="QComboBox" name="ppms_instrtype"/>
      </item>
      <item row="10" column="1">
       <widget class="QLabel" name="label_39">
@@ -598,7 +581,7 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string> Current source</string>
+        <string>LHe Level</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -716,7 +699,7 @@ color: rgb(255, 255, 255);</string>
      <item row="0" column="1" colspan="3">
       <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>PPMS</string>
+        <string>Temperature Controller</string>
        </property>
       </widget>
      </item>
