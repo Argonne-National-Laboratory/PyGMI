@@ -30,20 +30,28 @@
 
 import sys
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QCoreApplication
 import PyGMI_files as PyGMI
 
-
-app = None
+# get reference to the running QApplication (if any, otherwise return None)
+app = QCoreApplication.instance()
 
 def main():
+    newapp = False
     global app
-    #start a Qt Qapplication and pass it the command line arguments
-    app = QApplication(sys.argv)
-    #create the Graphical User Interface main window
+    if app is None:
+        # no running QApplication, starts one
+        # and pass it the command line arguments
+        newapp = True
+        app = QApplication(sys.argv)
+    app.references = set()
+    # create the Graphical User Interface main window
     window = PyGMI.start_GUI()
+    app.references.add(window)
     window.show()
-    #launch the Qt event manager through "app.exec()" (no more sys.exit)
-    app.exec()
+    # if a QApplication was just created
+    # launch the Qt event manager through "app.exec()" (no more sys.exit)
+    if newapp: app.exec()
 
 if __name__ == '__main__':
     main()
