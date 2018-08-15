@@ -1,10 +1,11 @@
 import os,time
-from PyQt4.QtGui import QWidget,QApplication,QSyntaxHighlighter,QTextCharFormat,QFont,QFileDialog,QStandardItemModel,QStandardItem
-from PyQt4.QtCore import Qt,QTimer,QRegExp
-from Macro_editor_Ui import Ui_Macro_editor
+from PyQt5.QtWidgets import QWidget,QApplication,QFileDialog
+from PyQt5.QtGui import QSyntaxHighlighter,QTextCharFormat,QFont,QStandardItemModel,QStandardItem
+from PyQt5.QtCore import Qt,QTimer,QRegExp
+from .Macro_editor_Ui import Ui_Macro_editor
 
 #Email capabilities
-from measurements_done_alert import Email_alert,Email_one_file,Email_directory
+from .measurements_done_alert import Email_alert,Email_one_file,Email_directory
 
 ################################################
 #non capturing version of the regular expressions
@@ -103,41 +104,35 @@ class Macro_editor(QWidget):
             EmailDirCommand(),
             SetICommand(),
             SetVCommand(),
-            SetUICommand(self.main)]
+            SetUICommand(self.main),
+            SetLR700VCommand(),
+            SetLR700IntegRateCommand()]
                 
     def save_macro(self):
         #the static method calls the native file system method
-        fileName = QFileDialog.getSaveFileName(self,"Save Macro",directory= "./Macro",filter="Macro file (*.mac)")
-        #open() does not work with 'unicode' type object, conversion is needed 
-#        fileName=fileName[0].encode('utf8')
+        fileName, _ = QFileDialog.getSaveFileName(self,"Save Macro",directory= "./Macro",filter="Macro file (*.mac)")
         if fileName!="":
             #get the macro text from frontpanel text box
             mac_unicode=self.ui.macro_textbox.toPlainText()
-            #print fileName
-            #(u'C:/Python27/Lib/site-packages/pyqtgraph/examples/test.txt', u'All Files (*.*)')
-            #WARNING: write() and open() do not work with 'unicode' type object
-            #they have to be converted to a string first (i.e. a list of bytes)
             savefile=open(fileName,'w')
-            savefile.write(mac_unicode.encode('utf8'))
+            savefile.write(mac_unicode)
             savefile.close()
                 
     def open_macro(self):
-        fileName = QFileDialog.getOpenFileName(self,"Open Macro",directory= "./Macro",filter="Macro file (*.mac)")
-        #open() does not work with 'unicode' type object, conversion is needed 
-#        fileName=fileName[0].encode('utf8')
+        fileName, _ = QFileDialog.getOpenFileName(self,"Open Macro",directory= "./Macro",filter="Macro file (*.mac)")
         if fileName!="":
             open_file=open(fileName,'r')
-            self.ui.macro_textbox.setPlainText(unicode(open_file.read(-1),encoding='utf-8')) #'-1' to read the whole file at once
+            self.ui.macro_textbox.setPlainText(str(open_file.read(-1))) #'-1' to read the whole file at once
             open_file.close()
 
     def run_macro(self):
         if not(self.macro_isActive):
             self.macro_isActive=True
-            self.current_macro=self.ui.macro_textbox.toPlainText().encode('utf8').split('\n')
+            self.current_macro=self.ui.macro_textbox.toPlainText().split('\n')
             self.current_line=0
             self.cur_mac_max=len(self.current_macro)
             #single shot timer
-            print "Starting Macro"
+            print("Starting Macro")
             self.macro_timer.start(0)
     
     def next_command(self):
@@ -168,7 +163,7 @@ class Macro_editor(QWidget):
         #TODO : signal/slot !!!
         if self.main.measurements_thread.isAlive(): 
             self.main.stop_measurements()
-        print "End of Macro"
+        print("End of Macro")
 
     #for future update
     #def add_macroline(self,item,index):
@@ -455,7 +450,7 @@ class WaitForHPPMSStableCommand():
         if self.waiting==False:
             self.waiting=True
             self.waiting_start=time.clock()
-        if 'Stable' in status and (abs(H-float(values[2]))<abs(float(values[2])*0.05) or abs(H-float(values[2]))<1.0):
+        if 'Stable' in status and abs(H-float(values[2]))<abs(float(values[2])*0.05):
             #Field is stable, go to next line of macro
             self.waiting=False
             self.next_move=1
@@ -698,10 +693,10 @@ class EmailCommand():
         values=self.regexp.capturedTexts()
         msg=values[1]
         try:
-            email_alert=Email_alert(message=msg.encode('utf8'),address=main.ui.email_address.text(),subject="Message from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
-            print "message successfully sent by e-mail"
+            email_alert=Email_alert(message=msg,address=main.ui.email_address.text(),subject="Message from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
+            print("message successfully sent by e-mail")
         except:
-            print "Exception: message could not be sent by e-mail"
+            print("Exception: message could not be sent by e-mail")
         #go to next line of macro
         self.next_move=1
         self.wait_time=500   
@@ -718,11 +713,11 @@ class EmailFileCommand():
         values=self.regexp.capturedTexts()
         file_path=values[1]
         try:
-            message="Hi,\n\nat your request, here is the file :"+os.path.normpath(os.path.abspath(file_path.encode('utf8').strip()))+"\n\n PyGMI"
-            email_alert=Email_one_file(one_file=file_path.encode('utf8').strip(),address=main.ui.email_address.text(),message=message,subject="Data file from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
-            print "file successfully sent by e-mail"
+            message="Hi,\n\nat your request, here is the file :"+os.path.normpath(os.path.abspath(file_path.strip()))+"\n\n PyGMI"
+            email_alert=Email_one_file(one_file=file_path.strip(),address=main.ui.email_address.text(),message=message,subject="Data file from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
+            print("file successfully sent by e-mail")
         except:
-            print "Exception: file could not be sent by e-mail"
+            print("Exception: file could not be sent by e-mail")
         #go to next line of macro
         self.next_move=1
         self.wait_time=500   
@@ -739,11 +734,11 @@ class EmailDirCommand():
         values=self.regexp.capturedTexts()
         dir_path=values[1]
         try:
-            message="Hi,\n\nat your request, here is the directory: "+os.path.normpath(os.path.abspath(dir_path.encode('utf8').strip()))+"\n\n PyGMI"
-            email_alert=Email_directory(directory=dir_path.encode('utf8').strip(),address=main.ui.email_address.text(),message=message,subject="Data directory from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
-            print  "directory successfully sent by e-mail"
+            message="Hi,\n\nat your request, here is the directory: "+os.path.normpath(os.path.abspath(dir_path.strip()))+"\n\n PyGMI"
+            email_alert=Email_directory(directory=dir_path.strip(),address=main.ui.email_address.text(),message=message,subject="Data directory from PyGMI",smtpadd=main.mainconf['smtpadd'],login=main.mainconf['login'],mdp=main.mainconf['mdp'],smtpport=main.mainconf['smtpport'])
+            print("directory successfully sent by e-mail")
         except:
-            print "Exception: directory could not be sent by e-mail"
+            print("Exception: directory could not be sent by e-mail")
         #go to next line of macro
         self.next_move=1
         self.wait_time=500   
@@ -803,8 +798,38 @@ class SetVCommand():
         #go to next line of macro
         self.next_move=1
         self.wait_time=500
-  
-                 
+
+class SetLR700VCommand():
+    def __init__(self):
+        self.regexp_str="Set LR700 excitation to "+Regexfloat+" V"
+        self.label="Set LR700 excitation to FLOAT V"
+        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
+        self.regexp=QRegExp(self.regexp_str)
+    
+    def run(self,main):
+        values=self.regexp.capturedTexts()
+        #set the voltage
+        V_source_setpoint=eval("main.ui.V_LR700")
+        V_source_setpoint.setValue(float(values[1])*1e6)
+        #go to next line of macro
+        self.next_move=1
+        self.wait_time=500  
+
+class SetLR700IntegRateCommand():
+    def __init__(self):
+        self.regexp_str="Set LR700 integration rate to "+Regexfloat+" secs"
+        self.label="Set LR700 integration rate to FLOAT secs"
+        self.regexp_str="^ *"+self.regexp_str+" *$" #so that the same string with heading and trailing whitespaces also matches
+        self.regexp=QRegExp(self.regexp_str)
+    
+    def run(self,main):
+        values=self.regexp.capturedTexts()
+        #set the voltage
+        setpoint=eval("main.ui.integ_rate_LR700")
+        setpoint.setValue(float(values[1]))
+        #go to next line of macro
+        self.next_move=1
+        self.wait_time=500
 
 class MacroHighlighter(QSyntaxHighlighter):
     def __init__(self,textboxdoc,valid_list_of_commands):
@@ -854,7 +879,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = Macro_editor(app)
     window.setupmain(None)
-    import Measurements_programs
+    from . import Measurements_programs
     window.update_commands(Measurements_programs.__all__)
     window.setuptimer()
     window.show()
