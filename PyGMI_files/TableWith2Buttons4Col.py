@@ -1,5 +1,5 @@
-from PyQt4.QtGui import QWidget,QApplication
-import TableWith2Buttons4Col_Ui
+from PyQt5.QtWidgets import QWidget,QApplication
+from . import TableWith2Buttons4Col_Ui
 
 
 class TableW2B4C(QWidget):
@@ -20,7 +20,7 @@ class TableW2B4C(QWidget):
     def insert_row(self):
         l=self.ui.table.rowCount()
         self.ui.table.insertRow(l)
-    
+
     def delete_row(self):
         l=self.ui.table.rowCount()
         self.ui.table.removeRow(l-1)
@@ -29,6 +29,6 @@ class TableW2B4C(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    window = TableWith2Buttons(app)
+    window = TableW2B4C(app)
     window.show()
     sys.exit(app.exec_())

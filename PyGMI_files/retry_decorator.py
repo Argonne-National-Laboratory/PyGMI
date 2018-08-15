@@ -3,9 +3,10 @@ import time
 
 # Retry decorator with return
 def retry_with(tries=2,ans_type=int,default_ans=-1,wait=1):
-    '''Retries a function or method until it returns an answer of the right type
-    (e.g. int,float,str) and does not raise not an exception. If it runs out of tries
-    a default answer is returned.
+    '''
+    Retries a function or method until it returns an answer of the right type
+    (e.g. int,float,str) and does not raise not an exception. If it runs out of
+    tries, a default answer is returned.
     '''
     def deco_retry(f):
         def f_retry(*args, **kwargs):
@@ -22,7 +23,7 @@ def retry_with(tries=2,ans_type=int,default_ans=-1,wait=1):
             if success:
                 res=ans
             else:
-                print "ran out of retries: exception with function", f.func_name
+                print("ran out of retries: exception with function", f.__name__)
                 res=default_ans # Ran out of tries :-(
             return res
         return f_retry # true decorator -> decorated function
@@ -30,7 +31,8 @@ def retry_with(tries=2,ans_type=int,default_ans=-1,wait=1):
 
 # Retry decorator without return
 def retry(tries=2,wait=1):
-    '''Retries a function or method until it does not raise not an exception.
+    '''
+    Retries a function or method until it does not raise not an exception.
     If it runs out of tries, nothing is done, and the program continue.
     '''
     def deco_retry(f):
@@ -46,6 +48,6 @@ def retry(tries=2,wait=1):
                     mtries -= 1      # consume an attempt
                     time.sleep(wait)
             if not(success):
-                print "ran out of retries: exception with function", f.func_name
+                print("ran out of retries: exception with function", f.__name__)
         return f_retry # true decorator -> decorated function
     return deco_retry  # @retry(arg[, ...]) -> true decorator
