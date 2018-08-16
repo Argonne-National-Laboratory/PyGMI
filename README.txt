@@ -17,14 +17,17 @@ Vm=voltmeter.query_voltage()
 Check out the documentation for more details !
 
 2018/08/14
-New branch to switch to python 3.6 and Qt5
+- New branch working with python 3.6 and Qt5
+- Work from a Spyder Ipython console
+- Independent instrument panel windows (top windows, not restrained to tab)
+- All required packages should be installable from conda except for pyvisa and pyserial (for which you can use pip)
+Check it out!
 
 2017/01/09 
 v3-beta was promoted to Master branch and was designed for use with PyQt4 and Qt4.8, and Python 2.7
 It should work with Anaconda/Spyder provided that you download one of the previous versions of Anaconda, as the most recent appears to ship with Qt5
 
 The previous Master branch was reverted to its original version and renamed "PySide branch" as it was found that some updates ended up introducing PyQt, thus mixing PySide and PyQt in the same program, and causing various bugs.
-
 
 2016/09/18 Major update
 Master branch was designed for the latest version of Python 2 and uses PySide
