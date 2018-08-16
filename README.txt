@@ -16,19 +16,23 @@ Vm=voltmeter.query_voltage()
 
 Check out the documentation for more details !
 
-2018/08/14
-- switch to Python 3 and Qt5
+2018/08/15
+- New branch working with python 3.6 and Qt5
 (-->a few helper scripts in the root folder may help with your own legacy scripts for previous versions of PyGMI)
-- adapted to Ipython console in Spyder
+- Work from Spyder Ipython console
+- Independent instrument panel windows (top windows, not restrained to tab)
+- All required packages should be installable from conda except for pyvisa and pyserial (for which you can use pip)
+
+Also:
 - changed syntax of data queue in the measurements programs:
 it now accepts:
-self.data_queue.put(('some comments','comment'))
+    self.data_queue.put(('some comments','comment'))
 and:
-self.data_queue.put((last_data,False))
+    self.data_queue.put((last_data,False))
 needs to be replaced by:
-self.data_queue.put((last_data,'data'))
+    self.data_queue.put((last_data,'data'))
 
-->switch to Python 3
+->a few details about switch to Python 3
 - use importlib.import_module and importlib.reload for the programmatic import of
 measurements scripts, which removed all the "exec", and left only one "eval"
 in Main.py
@@ -39,13 +43,11 @@ in Main.py
 - fixed problem with relative imports and compileUI: need to prepend a '.' in the name of the headerfile in the .ui when promoting a widget
 - fixed a few other bugs
 
-
 2017/01/09 
 v3-beta was promoted to Master branch and was designed for use with PyQt4 and Qt4.8, and Python 2.7
 It should work with Anaconda/Spyder provided that you download one of the previous versions of Anaconda, as the most recent appears to ship with Qt5
 
 The previous Master branch was reverted to its original version and renamed "PySide branch" as it was found that some updates ended up introducing PyQt, thus mixing PySide and PyQt in the same program, and causing various bugs.
-
 
 2016/09/18 Major update
 Master branch was designed for the latest version of Python 2 and uses PySide
