@@ -2,7 +2,7 @@
 import threading
 #Time measurement
 import time
-import numpy as np
+#import numpy as np
 
 ######create a separate thread to run the measurements without freezing the front panel######
 class Script(threading.Thread):
@@ -29,64 +29,62 @@ class Script(threading.Thread):
         #then you have to send the results of the measurements this way : "self.data_queue.put(([some time, some current, some voltage],False))"
 
         header=['Time (s)','Time since Epoch']
-        header+=["Temperature (K)"]
-        header+=["H (Oe)"]
+#        header+=["H (Oe)"]
+        header+=["T (K)"]
         header+=["R (Ohm)","X (Ohm)"]
-        header+=["Excitation (V)","I (A)"]
-
-
+#        header+=["Delay (s)"]
         #######################################################
         #ORIGIN OF TIME FOR THE EXPERIMENT
         start_time=time.clock()
         #######################################################
-        #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
-        self.data_queue.put((header,'header'))
-
-        #######################################################
         #INSTRUMENTS NAMES SHORTCUTS FOR EASIER READING OF THE CODE BELOW
-        #I_source=instr.instr_8
-
-
+        LS372 = instr.instr_1
         ppms = instr.ppms
-        LR700 = instr.instr_1
-
-        #Instruments set-up
-        with reserved_bus_access:
-            LR700.set_time_cste(10.0)
+        # 40 ms delay seems optimal to avoid repeated points
+        LS372.delay = 40e-3
+        #######################################################
+        #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
+        comment = str(LS372.query_Input_Setup(3, verbose=True))\
+                      .replace(',','\n')\
+                      .replace('μ','u')\
+                    +'\n'+str(LS372.query_frequency())+' Hz'
+        self.data_queue.put((comment,'comment'))
+        self.data_queue.put((header,'header'))
         #######################################################
         #MAIN LOOP
-        for V in np.arange(f.current1,f.current2,f.current3):
+        time.sleep(2)
+        while True:
             #Check if the main process is telling to stop
             if self.stop_flag.isSet():
                 break
-            for i in range(f.repeat_points):
-                if self.stop_flag.isSet():
-                    break
-                with reserved_bus_access:
-                    LR700.set_varexcitation(V)
-                    Herror, Hexp, status = ppms.get_field()
-                    time.sleep(0.1)
-                    T = ppms.get_temperature()[1]
-                    # the bridge needs 5s + filter TC to settle after a step
-                    # change
-                    time.sleep(15)
-                    R = LR700.query_R()
-                    X = LR700.query_X()
-                    I = LR700.query_bridge_current()
-                ######Compile the latest data######
-                t=time.clock()-start_time
-                epochtime=time.time()
-                last_data=[t,epochtime]
-                last_data.append(T)
-                last_data+=[Hexp]
-                last_data+=[R,X]
-                last_data+=[V,I]
 
+            with reserved_bus_access:
+#                H = ppms.get_field()[1]
+#                time.sleep(0.1)
+                T0 = ppms.get_temperature()[1]
+#                time.sleep(0.1)
+                R, X = 0, 0
+                for i in range(10):
+                    R += LS372.query_R(3)
+                    X += LS372.query_X(3)
+                R /= 10
+                X /= 10
+#                T1 = ppms.get_temperature()[1]
+#                time.sleep(0.1)
 
-                #print last_data
-                #print map(type,last_data)
-                #######Send latest data to the main process for display and storage######
-                self.data_queue.put((last_data,'data'))
-                #######Wait mesure_delay secs before taking next measurements
-                time.sleep(f.mesure_delay)
+#            T = (T0+T1)/2.0
+            T = T0
+            ######Compile the latest data######
+            t = time.clock()-start_time
+            epochtime = time.time()
+            last_data = [t,epochtime]
+            last_data += [T]
+            last_data.append(R)
+            last_data += [X]
+#            last_data += [LS372.delay]
+
+            #######Send latest data to the main process for display and storage######
+            self.data_queue.put((last_data,'data'))
+            #######Wait mesure_delay secs before taking next measurements
+            time.sleep(f.mesure_delay)
 

@@ -1,4 +1,3 @@
-# Import smtplib for the actual sending function
 import smtplib
 import time
 import os
@@ -12,19 +11,11 @@ from email.mime.text import MIMEText
 
 DEFAULT_MSG="Hi,\nOfficial time on the computer is "+time.ctime(time.time())+" \nPyGMI"
 
-#DEFAULT_MSG="""Hi,
-            #everything went well. Official finish time on the computer is """+time.ctime(time.time())+""".
-            #see you soon,
-    
-            #SC
-                           #"""
-
 class Email_alert():
     def __init__(self,address="" ,message="",subject="",smtpadd="",login="",mdp="",smtpport=465):
         ### Create a text/plain message
         if message == "":
-            msg = MIMEText(DEFAULT_MSG) #fp.read())
-            ##fp.close()
+            msg = MIMEText(DEFAULT_MSG)
         else:
             msg = MIMEText(message)
         me = login #the sender's email address
@@ -41,7 +32,7 @@ class Email_alert():
         s.quit()
 
 class Email_one_file():
-    def __init__(self,one_file='.',address="" ,message="",subject="",smtpadd="",login="",mdp="",smtpport=465):       
+    def __init__(self,one_file='.',address="" ,message="",subject="",smtpadd="",login="",mdp="",smtpport=465):
         # Create the enclosing (outer) message
         me = login #the sender's email address
         you = address #the recipient's email address
@@ -49,10 +40,10 @@ class Email_one_file():
         outer['Subject'] = subject
         outer['To'] = you
         outer['From'] = me
-        
+
         ### Add a text/plain message
         if message == "":
-            msg = MIMEText(DEFAULT_MSG)        
+            msg = MIMEText(DEFAULT_MSG)
         else:
             msg = MIMEText(message)
         outer.attach(msg)
@@ -81,10 +72,10 @@ class Email_one_file():
         s.login(login, mdp)
         s.sendmail(me, [you], outer.as_string())
         s.quit()
-    
+
 
 class Email_directory():
-    def __init__(self,directory='.',address="" ,message="",subject="",smtpadd="",login="",mdp="",smtpport=465):       
+    def __init__(self,directory='.',address="" ,message="",subject="",smtpadd="",login="",mdp="",smtpport=465):
         # Create the enclosing (outer) message
         me = login #the sender's email address
         you = address #the recipient's email address
@@ -92,10 +83,10 @@ class Email_directory():
         outer['Subject'] = subject
         outer['To'] = you
         outer['From'] = me
-        
+
         ### Add a text/plain message
         if message == "":
-            msg = MIMEText(DEFAULT_MSG)        
+            msg = MIMEText(DEFAULT_MSG)
         else:
             msg = MIMEText(message)
         outer.attach(msg)
@@ -122,11 +113,11 @@ class Email_directory():
         # Set the filename parameter
         msg.add_header('Content-Disposition', 'attachment', filename=zipped_data)
         outer.attach(msg)
-        
+
         # Now send the message
         s = smtplib.SMTP_SSL(host=smtpadd,port=smtpport)
         #s.starttls()
         s.login(login, mdp)
         s.sendmail(me, [you], outer.as_string())
         s.quit()
-    
+

@@ -26,44 +26,58 @@
 ##***************************************************************************************************
 ##
 
+
 """
-A tentative patch to upgrade PyGMI to pyvisa>1.5
+A tentative and partial patch to upgrade PyGMI to python3
+by fixing encoding problems
 """
+
 import os
+
+# yes to All bypass
+bypass = False
+
+def ischangeOK(oline,nline):
+    global bypass
+    if bypass: shall = True
+    else:
+        msg = 'Replace\n> '+oline+'\nby\n> '+nline+'\n?'
+        ans = input("%s ([y]es/ [n]o / yes to [a]ll) " % msg).lower()
+        bypass = ans == 'a'
+        shall = (ans == 'y') or bypass
+    return shall
 
 rep = os.getcwd()
 
-for root,dirs,files in os.walk(rep):
+
+replacements = {".encode('utf8')" : '',
+                ",encoding='utf-8'": '',
+                ".encode(\'utf8\')" : ""
+                }
+
+for root, dirs, files in os.walk(rep):
     for myfile in files:
         needupdate = False
-        if myfile[-3:]=='.py' and 'pyvisaup1p5patch' not in myfile:
+        if myfile[-3:] == '.py' and 'patch' not in myfile:
             with open(root+os.sep+myfile,'r',encoding='utf-8') as f:
                 txt = f.readlines()
-                for i,line in enumerate(txt):
-                    if "visa.instrument(" in line:
-                        line = line.replace("visa.instrument(","visa.ResourceManager().open_resource(")
-                        print(myfile,"line",i,"visa.instrument(")
-                        needupdate = True
-                    if ".ask(" in line:
-                        line = line.replace(".ask(",".query(")
-                        print(myfile,"line",i,".ask(")
-                        needupdate = True
-                    if ".term_chars" in line:
-                        line = line.replace(".term_chars",".read_termination")
-                        print(myfile,"line",i,".term_chars")
-                        needupdate = True
-                    if "timeout" in line:
-                        print("WARNING: 'timeout' detected in",myfile)
-                        print("timeout must be in milliseconds for PyVisa > 1.5")
-                        print(line)
-                    if 'visa.get_instruments_list()' in line:
-                        line = line.replace('visa.get_instruments_list()','visa.ResourceManager().list_resources()')
-                        print(myfile,"line",i,'.get_instruments_list()')
-                        needupdate = True
+                print(">>> Checking ", myfile)
+                for i, line in enumerate(txt):
+                    for key in list(replacements.keys()):
+                        if key in line:
+                            newline = line.replace(key,replacements[key])
+                            if ischangeOK(line,newline):
+                                print("line",i,"updated")
+                                if bypass:print(line, '>', newline)
+                                line = newline
+                                needupdate = True
+
                     txt[i] = line
 
             if needupdate:
                 with open(root+os.sep+myfile, encoding='utf-8', mode="w") as f:
                     f.write("".join(txt))
-                print(">>> successfully patched",myfile)
+                print(">>>>>> successfully patched",myfile)
                 print("")
+            else:
+                print(">>>>>> no changes needed in",myfile)

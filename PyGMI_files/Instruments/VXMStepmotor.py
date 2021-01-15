@@ -13,10 +13,10 @@ class Connect_Instrument():
         self.last_known_angle=290
         self.COM_port=COM_port
         #print self.query_unit_Id()
-        
+
     def query_unit_Id(self):
         return "VXM step motor on port :"+self.COM_port
-        
+
     def initialize(self):
         """commands executed when the instrument is initialized"""
         pass
@@ -28,36 +28,12 @@ class Connect_Instrument():
         #angle<0 corresponds to antitrigo/ClockWise
         #timeout in milliseconds for PyVisa > 1.5
         self.io.timeout=1000*(10+abs(angle/float(angular_speed)))
-        motor_steps=-int(angle/0.015) 
+        motor_steps=-int(angle/0.015)
         motor_speed=int(angular_speed/0.015)
         self.io.write('C,S1M'+str(motor_speed)+',I1M'+str(motor_steps)+',R')
         self.io.inWaiting()
         ans=self.io.read(1)
         if ans == '^':
             self.last_known_angle+=angle
-            print "rotation completed, current position:",self.last_known_angle,"degrees"
-##a=VXM()     
-##time.sleep(10)
-##for i in range(10):
-##    a.io.write('C,I1M-200,R')
-##    time.sleep(5)
+            print("rotation completed, current position:",self.last_known_angle,"degrees")
 
-#the gear ratio is 60:1
-#the step motor has 200 steps per revolution
-#But the VXM also uses step units for Index and Speed parameters. One step is 1/400 of a motor
-#revolution.
-#so 400 steps correspond to 360/60=6 degrees
-#so 6/400 = 0.015 degrees/step
-#so 400/6 = 66.67 step/degrees
-##        
-##    def query_temp(self,channel):
-##        #reports the current temperature reading on any of the input channels
-##        #channel can be A,B,C,D
-##        return float(self.io.query("KRDG? "+channel))
-##
-
-##To put the VXM in the On-Line mode/programming mode, the host must send either an
-##" ", or " ". When the Controller receives an " ", or " " the On-line light will light and the
-##Jog inputs will be disabled.
-##The " " puts the VXM on-line with echo "on" (echoes all characters received back to the
-##host). The " " puts the VXM on-line with echo "off".

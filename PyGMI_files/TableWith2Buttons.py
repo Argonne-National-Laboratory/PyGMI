@@ -1,5 +1,5 @@
-from PyQt4.QtGui import QWidget,QApplication
-import TableWith2Buttons_Ui
+from PyQt5.QtWidgets import QWidget,QApplication
+from . import TableWith2Buttons_Ui
 
 
 class TableWith2Buttons(QWidget):

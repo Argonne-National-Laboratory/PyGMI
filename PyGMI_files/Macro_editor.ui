@@ -162,7 +162,7 @@ font: 75 26pt &quot;Arial&quot;;</string>
   <customwidget>
    <class>MyMacroEdit</class>
    <extends>QPlainTextEdit</extends>
-   <header>Macro_editor_textbox</header>
+   <header>.Macro_editor_textbox</header>
   </customwidget>
  </customwidgets>
  <resources/>

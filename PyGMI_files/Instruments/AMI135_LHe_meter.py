@@ -21,7 +21,7 @@ def retry_with(tries=2,ans_type=int,default_ans=-1,wait=1):
             if success:
                 res=ans
             else:
-                print "ran out of retries: exception with function", f.func_name
+                print("ran out of retries: exception with function", f.__name__)
                 res=default_ans # Ran out of tries :-(
             return res
         return f_retry # true decorator -> decorated function
@@ -45,7 +45,7 @@ def retry(tries=2,wait=1):
                     mtries -= 1      # consume an attempt
                     time.sleep(wait)
             if not(success):
-                print "ran out of retries: exception with function", f.func_name
+                print("ran out of retries: exception with function", f.__name__)
         return f_retry # true decorator -> decorated function
     return deco_retry  # @retry(arg[, ...]) -> true decorator
 
@@ -54,7 +54,7 @@ class Connect_Instrument():
         #part to be run at instrument initialization, the following commands are mandatory
         self.io = visa.ResourceManager().open_resource(VISA_address)
         self.VISA_address=VISA_address
-        print self.query_unit_Id()
+        print(self.query_unit_Id())
 
     #mandatory function
     #return instrument identification. This command is common to almost all GPIB instruments. Modify if necessary.
@@ -75,7 +75,7 @@ class Connect_Instrument():
         self.io.write("UNIT")
         self.io.wait_for_srq()
         res=self.io.read()
-        if translation.has_key(res):
+        if res in translation:
             return translation[res]
         else:
             return res

@@ -7,8 +7,7 @@ import time
 Regexfloat = "([-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)"
 LRanswer = re.compile(Regexfloat+r' (K| |M|U)OHM (?:/\\X|/\\R|10/\\R|10/\\X|R|X|RSET|XSET) *\n')
 LRstat = re.compile(r'(\d)R,(\d)E,(\d+)\%,(\d)F(?:\( ?'+Regexfloat+r' (s|M)\))?,(\d)M,(\d)L,(\d\d)S\n')
-# TODO: 'U' definitely indicated microOhm in my experiment
-# but Adam said it's also the symbol for megaOhm ?
+
 LRmultconv = {'U':1e-6,'M':1e-3,' ':1e0,'K':1e3}
 LRfiltconv = {'s':1.0,'M':60.0}
 
@@ -134,7 +133,7 @@ class Connect_Instrument():
             pct = 100
         else:
             res = np.arange(0,7,1)[LRexc>=value][0]
-            pct = int(value/LRexc[res]*100)
+            pct = int(round(value/LRexc[res]*100))
             if pct < 5:pct = 5
 
         if pct == 100:
@@ -148,7 +147,7 @@ class Connect_Instrument():
             self.io.write('V 1')
             time.sleep(0.1)
             self.io.write('V ='+str(pct).zfill(2))
-            print 'V ='+str(pct).zfill(2)
+            print('V ='+str(pct).zfill(2))
             time.sleep(0.1)
             self.io.write('E '+str(res))
 
@@ -177,7 +176,7 @@ class Connect_Instrument():
         so this finds the longest time constant lower than 'value'
         """
         conv = {1.0:'0',3.0:'1',10.0:'2'}
-        if conv.has_key(value):
+        if value in conv:
             # 1, 3 and 10 have a special setting just for themselves
             self.io.write('F '+conv[value])
         else:

@@ -1,11 +1,11 @@
-from PyQt4.QtGui import QPlainTextEdit
+from PyQt5.QtWidgets import QPlainTextEdit
 
 #future update
 #This class provides a text editor deriving from Qt QPlainTextEdit
 #where an input form is automatically generated when the user double clicks on a line in the text editor.
 #By analyzing the content of the line, the class automatically generates a form  which contains input boxes for each parameter expected on that line.
 #The user can thus specify in that form the value they want for each parameter, then press OK (or Cancel)
-#which will (or will not) rewrite that line in the sequence editor.
+#which will (or will not) rewrite that line in the macro editor.
 
 class MyMacroEdit(QPlainTextEdit):
     def __init__(self,*args,**kwargs):
@@ -16,7 +16,7 @@ class MyMacroEdit(QPlainTextEdit):
 ##        if event.button()==Qt.MiddleButton:
 ##            cursor=self.textCursor()
 ##            txt=cursor.block().text()
-##            form=My_Form_for_sequence_editor(form_string=txt)
+##            form=My_Form_for_macro_editor(form_string=txt)
 ##            if form.dialog_needed:
 ##                if form.exec_():
 ##                    cursor.select(cursor.BlockUnderCursor)
@@ -26,7 +26,7 @@ class MyMacroEdit(QPlainTextEdit):
 ##                form.done(1)
 ##                #print "no form was needed"
 
-#for future update 
+#for future update
 ##class My_Form(QDialog):
 ##    def __init__(self, parent=None,form_string=None):
 ##        super(My_Form, self).__init__(parent)
@@ -74,15 +74,15 @@ class MyMacroEdit(QPlainTextEdit):
 ##            self.dialog_needed=False
 ##            self.user_string=form_string
 ##            #print "just go on"
-##            
+##
 ##    def values_entered(self):
 ##        self.user_string=u''
-##        for i in range(len(self.labels)):         
+##        for i in range(len(self.labels)):
 ##            self.user_string+=self.labels[i]+self.widgets[i].text()
 ##        self.user_string+=self.working_string
-##        self.accept() 
- 
-                    
+##        self.accept()
+
+
 #if __name__ == "__main__":
     #import sys
     #app = QApplication(sys.argv)

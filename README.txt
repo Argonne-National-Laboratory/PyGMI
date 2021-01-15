@@ -1,4 +1,4 @@
-Welcome to PyGMI ! What is PyGMI ?
+﻿Welcome to PyGMI ! What is PyGMI ?
 PyGMI is an open source Generic Measurements Interface made in Python/Qt that can take measurements with instruments connected over GPIB, RS232, ethernet or USB using Pyvisa and PySerial. It features:
 • live display of the data acquired using pyqtgraph
 • a macro editor that can make a series of mesurements and even send e-mails with data! 
@@ -16,12 +16,32 @@ Vm=voltmeter.query_voltage()
 
 Check out the documentation for more details !
 
-2018/08/14
+2018/08/15
 - New branch working with python 3.6 and Qt5
-- Work from a Spyder Ipython console
+(-->a few helper scripts in the root folder may help with your own legacy scripts for previous versions of PyGMI)
+- Work from Spyder Ipython console
 - Independent instrument panel windows (top windows, not restrained to tab)
 - All required packages should be installable from conda except for pyvisa and pyserial (for which you can use pip)
-Check it out!
+
+Also:
+- changed syntax of data queue in the measurements programs:
+it now accepts:
+    self.data_queue.put(('some comments','comment'))
+and:
+    self.data_queue.put((last_data,False))
+needs to be replaced by:
+    self.data_queue.put((last_data,'data'))
+
+->a few details about switch to Python 3
+- use importlib.import_module and importlib.reload for the programmatic import of
+measurements scripts, which removed all the "exec", and left only one "eval"
+in Main.py
+- fixed "print" statement and relative import
+- fixed ".encode('utf-8')" of unicode string
+- fixed "encoding=" option of str()
+- fixed Measurements_programs catching "__pycache__"
+- fixed problem with relative imports and compileUI: need to prepend a '.' in the name of the headerfile in the .ui when promoting a widget
+- fixed a few other bugs
 
 2017/01/09 
 v3-beta was promoted to Master branch and was designed for use with PyQt4 and Qt4.8, and Python 2.7

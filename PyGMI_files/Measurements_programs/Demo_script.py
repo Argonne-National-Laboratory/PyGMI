@@ -13,7 +13,7 @@ class Script(threading.Thread):
         self.data_queue=data_queue
         self.stop_flag=stop_flag
         self.GPIB_bus_lock=GPIB_bus_lock
-        
+
     def run(self):
         #this is the part that will be run in a separate thread
         #######################################################
@@ -30,18 +30,19 @@ class Script(threading.Thread):
         #"self.data_queue.put(([some time, some current, some voltage],False))"
         header=['Time (s)']
         header+=['Time (min)']
-        if f.temp_controller_on:header+=["T (K)"]
-        if f.instr_on_1:header+=["Radius (V)","theta"]
-        
+        header+=["T (K)"]
+        header+=["Radius (V)","theta"]
+
         #######################################################
         #ORIGIN OF TIME FOR THE EXPERIMENT
         start_time=time.clock()
         #######################################################
         #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
-        self.data_queue.put((header,True))
+        self.data_queue.put(('some comments','comment'))
+        self.data_queue.put((header,'header'))
 
-        if f.instr_on_1:m.instr_1.set_amplitude(f.voltage1)
-        
+        m.instr_1.set_amplitude(f.voltage1)
+
         #######Control parameters loop(s)######
         while True:
             #Check if the main thread has raised the "Stop Flag"
@@ -49,26 +50,24 @@ class Script(threading.Thread):
                 break
             #reserve the access to the instruments, then discuss with them
             with reserved_bus_access:
-                #Measure T
-                if f.temp_controller_on:T=m.temp_controller.query_temp('B')
-                #Measure R and theta
-                if f.instr_on_1:freq,R1,theta1=m.instr_1.query_f_R_theta()
-                #Measure R and theta
-                if f.instr_on_1:freq,R2,theta2=m.instr_1.query_f_R_theta()
-            R=(R1+R2)/2.0
-            theta=(theta1+theta2)/2.0
+                # Measure T
+                m.temp_controller.query_temp('B')
+                # Measure R and theta
+                freq, R1, theta1 = m.instr_1.query_f_R_theta()
+                # Measure R and theta
+                freq, R2, theta2 = m.instr_1.query_f_R_theta()
+            R = (R1+R2)/2.0
+            theta = (theta1+theta2)/2.0
             ######Compile the latest data######
-            t=time.clock()-start_time
-            last_data=[t,t/60.0]
-            if f.temp_controller_on:last_data.append(T)
-            if f.instr_on_1:last_data.extend([R,theta])
-                            
+            t = time.clock()-start_time
+            last_data = [t,t/60.0]
+
             #######Send the latest data to the main thread for automatic display and storage into the savefile######
-            self.data_queue.put((last_data,False))
-            
+            self.data_queue.put((last_data,'data'))
+
             #Check if the main thread has raised the "Stop Flag"
             if self.stop_flag.isSet():
-                break            
+                break
             #######Wait mesure_delay secs before taking next measurements
             time.sleep(f.mesure_delay)
-        
+

@@ -1,11 +1,12 @@
-# If you want a value of the frontpanel to be accessible for use in a measurements program it has to be
-# added in here
-# 
-# Example: suppose we just added a text entry in the interface (the .ui file) using Qt Designer
+# If you want a value of the front panel to be accessible for use in a
+# measurements program it has to be added in here
+#
+# Example: suppose we just added a text entry in the interface (the .ui file)
+# using Qt Designer
 # We named that entry "my_text_entry" in Qt Designer
 # This entry can now be accessed from here using the name "ui.my_text_entry"
 # Next, we want to retrieve the text in that entry and put it in the variable "my_text",
-# for that we just add the line "self.my_text=ui.my_text_entry.text()" 
+# for that we just add the line "self.my_text=ui.my_text_entry.text()"
 # In the measurement scripts, self.my_text will be accessible as f.my_text
 
 #import re
@@ -24,19 +25,25 @@ class Frontpanel_values():
         self.channels_list_1=ui.instr_IO.ui.channels_list_1.text().split(',')
         self.channels_list_2=ui.instr_IO.ui.channels_list_2.text().split(',')
         self.mapping=ui.instr_IO.ui.mapping.text().split(',')
-        
+
         ####################
         #"Measurements" tab#
         ####################
         #Text entries
         self.email_address=ui.email_address.text()
         self.savefile_txt_input=ui.savefile_txt_input.text()
-        
+
+        #LR700
+        LR700rangelist = [2e-3,20e-3,200e-3,2,20,200,2e3,20e3,200e3,2e6]
+        self.range_LR700 = LR700rangelist[ui.range_LR700.currentIndex()]
+        self.integ_rate_LR700 = ui.integ_rate_LR700.value()
+        self.V_LR700 = ui.V_LR700.value()*1e-6
+
         #Numeric entries
         self.mesure_delay=ui.mesure_delay.value()/1000.0
         self.mesure_speed=ui.mesure_speed.value()
         self.repeat_points=ui.repeat_points.value()
-        
+
         self.current1=ui.I_source_setpoint.value()*1e-6
         self.current2=ui.I_source_setpoint_2.value()*1e-6
         self.current3=ui.I_source_setpoint_3.value()*1e-6
@@ -54,25 +61,6 @@ class Frontpanel_values():
         self.anglestart=ui.anglestart.value()
         self.anglestop=ui.anglestop.value()
         self.anglestep=ui.anglestep.value()
-        
+
         #CHECKBOXES
         self.voltage_criterion_on=ui.voltage_criterion_on.isChecked()
-                
-        #Tables       
-        #####Temperature
-##        self.min_T=[]
-##        self.step_T=[]
-##        self.max_T=[]
-##        #self.T_rate=[]
-##        self.Temp_table_length=ui.Temp_table.ui.table.rowCount()
-##        for i in range(self.Temp_table_length):
-##            if type(ui.Temp_table.ui.table.item(i,0))!=type(None):
-##                self.min_T.append(float(ui.Temp_table.ui.table.item(i,0).text()))
-##                self.step_T.append(float(ui.Temp_table.ui.table.item(i,1).text()))
-##                self.max_T.append(float(ui.Temp_table.ui.table.item(i,2).text()))
-##                #self.T_rate.append(float(ui.Temp_table.ui.table.item(i,3).text()))
-##        self.temps_list=[]
-##        for i in range(len(self.min_T)):
-##            if self.max_T[i]>self.min_T[i]:self.temps_list.extend([self.min_T[i]+j*abs(self.step_T[i]) for j in range(int((self.max_T[i]-self.min_T[i])/abs(self.step_T[i])))])
-##            if self.max_T[i]<=self.min_T[i]:self.temps_list.extend([self.min_T[i]-j*abs(self.step_T[i]) for j in range(int(-(self.max_T[i]-self.min_T[i])/abs(self.step_T[i])))])
-        

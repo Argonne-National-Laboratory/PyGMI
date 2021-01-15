@@ -14,7 +14,7 @@ class Script(threading.Thread):
         self.data_queue=data_queue
         self.stop_flag=stop_flag
         self.GPIB_bus_lock=GPIB_bus_lock
-        
+
     def run(self):
         #this is the part that will be run in a separate thread
         #######################################################
@@ -29,14 +29,14 @@ class Script(threading.Thread):
         #then you have to send the results of the measurements this way : "self.data_queue.put(([some time, some current, some voltage],False))"
         header=['Time (s)','Time (min)']
         if f.instr_on_14:header+=["LHe level (%)","rate (%/min)"]
-        with reserved_bus_access:        
+        with reserved_bus_access:
             a=m.instr14.set_unit_to_percent()
         #######################################################
         #ORIGIN OF TIME FOR THE EXPERIMENT
         start_time=time.clock()
         #######################################################
         #SEND THE HEADER OF THE SAVEFILE BACK TO THE MAIN THREAD, WHICH WILL TAKE CARE OF THE REST
-        self.data_queue.put((header,True))
+        self.data_queue.put((header,'header'))
         last_t=[]
         last_L=[]
         rate=0
@@ -45,7 +45,7 @@ class Script(threading.Thread):
             n=len(x)
             res=(sum(x)*sum(y)-n*sum([x[i]*y[i] for i in range(n)]))/(sum(x)**2-n*sum([x[i]**2 for i in range(n)]))
             return res
-        
+
         #######Control parameters loop(s)######
         while True:
             #Check if the main thread has raised the "Stop Flag"
@@ -55,13 +55,13 @@ class Script(threading.Thread):
             with reserved_bus_access:
                 if f.instr_on_14:
                     L=float(m.instr14.query_LHe_level()[:-1])
-                                  
-                
+
+
             ######Compile the latest data######
             t=time.clock()-start_time
             last_data=[t,t/60.0]
             if f.instr_on_14:
-                last_data.extend([L])               
+                last_data.extend([L])
                 last_L.append(L)
                 last_t.append(t/60.0)
             if len(last_L)>15:
@@ -69,12 +69,12 @@ class Script(threading.Thread):
                 rate=bare_bone_lin_reg(last_t[-15:],last_L[-15:])
             last_data.append(rate)
             #######Send the latest data to the main thread for automatic display and storage into the savefile######
-            self.data_queue.put((last_data,False))
-            
+            self.data_queue.put((last_data,'data'))
+
             #Check if the main thread has raised the "Stop Flag"
             if self.stop_flag.isSet():
                 break
-            
+
             #######Wait mesure_delay secs before taking next measurements
             time.sleep(f.mesure_delay)
-        
+
