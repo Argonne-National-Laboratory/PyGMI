@@ -26,7 +26,7 @@ class Connect_Instrument():
         return float(self.io.query(":LEV:CCURR?"))
 
     def query_R_theta(self):
-        return float(self.io.query(":MEAS?"))
+        return self.io.ask_for_values((":MEAS?"))
 
     def query_phase(self):
         return float(self.io.query('PHAS?'))
