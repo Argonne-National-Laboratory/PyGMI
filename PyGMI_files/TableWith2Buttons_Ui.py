@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'C:\Users\leroux\Github\PyGMI\PyGMI_files\TableWith2Buttons.ui'
+#
+# Created by: PyQt5 UI code generator 5.9.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Table(object):
+    def setupUi(self, Table):
+        Table.setObjectName("Table")
+        Table.resize(470, 476)
+        self.gridLayout = QtWidgets.QGridLayout(Table)
+        self.gridLayout.setObjectName("gridLayout")
+        self.table = QtWidgets.QTableWidget(Table)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
+        self.table.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.table.setFont(font)
+        self.table.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.table.setLineWidth(1)
+        self.table.setDragDropMode(QtWidgets.QAbstractItemView.DragDrop)
+        self.table.setAlternatingRowColors(True)
+        self.table.setGridStyle(QtCore.Qt.SolidLine)
+        self.table.setRowCount(1)
+        self.table.setColumnCount(3)
+        self.table.setObjectName("table")
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        item.setFont(font)
+        self.table.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(9)
+        item.setFont(font)
+        self.table.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        item.setFont(font)
+        self.table.setHorizontalHeaderItem(2, item)
+        self.table.horizontalHeader().setCascadingSectionResizes(True)
+        self.table.horizontalHeader().setDefaultSectionSize(100)
+        self.table.horizontalHeader().setStretchLastSection(True)
+        self.table.verticalHeader().setVisible(False)
+        self.table.verticalHeader().setStretchLastSection(False)
+        self.gridLayout.addWidget(self.table, 1, 0, 1, 3)
+        self.pushButton_18 = QtWidgets.QPushButton(Table)
+        self.pushButton_18.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_18.sizePolicy().hasHeightForWidth())
+        self.pushButton_18.setSizePolicy(sizePolicy)
+        self.pushButton_18.setMinimumSize(QtCore.QSize(30, 30))
+        self.pushButton_18.setMaximumSize(QtCore.QSize(30, 30))
+        self.pushButton_18.setStyleSheet("color: rgb(0, 170, 127);\n"
+"font: 26pt \"Arial\";")
+        self.pushButton_18.setDefault(False)
+        self.pushButton_18.setObjectName("pushButton_18")
+        self.gridLayout.addWidget(self.pushButton_18, 0, 0, 1, 1)
+        self.pushButton_17 = QtWidgets.QPushButton(Table)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_17.sizePolicy().hasHeightForWidth())
+        self.pushButton_17.setSizePolicy(sizePolicy)
+        self.pushButton_17.setMaximumSize(QtCore.QSize(30, 30))
+        self.pushButton_17.setStyleSheet("color: rgb(255, 0, 0);\n"
+"font: 26pt \"Arial\";")
+        self.pushButton_17.setIconSize(QtCore.QSize(20, 20))
+        self.pushButton_17.setDefault(False)
+        self.pushButton_17.setObjectName("pushButton_17")
+        self.gridLayout.addWidget(self.pushButton_17, 0, 1, 1, 1)
+
+        self.retranslateUi(Table)
+        self.pushButton_18.clicked.connect(Table.insert_row)
+        self.pushButton_17.clicked.connect(Table.delete_row)
+        QtCore.QMetaObject.connectSlotsByName(Table)
+
+    def retranslateUi(self, Table):
+        _translate = QtCore.QCoreApplication.translate
+        Table.setWindowTitle(_translate("Table", "Form"))
+        item = self.table.horizontalHeaderItem(0)
+        item.setText(_translate("Table", "From"))
+        item = self.table.horizontalHeaderItem(1)
+        item.setText(_translate("Table", "To"))
+        item = self.table.horizontalHeaderItem(2)
+        item.setText(_translate("Table", "step"))
+        self.pushButton_18.setText(_translate("Table", "+"))
+        self.pushButton_17.setText(_translate("Table", "-"))
+
